@@ -50,7 +50,6 @@ function insertImageOnIndex(i)
     element.height = size;
   }
   element.style.marginLeft = "3px";
-  console.log(element.src);
   container.appendChild(element);
 }
 
