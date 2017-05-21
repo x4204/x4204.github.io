@@ -23,7 +23,7 @@ function transCode()
     var charCode = input.value[i].toLowerCase().charCodeAt(0);
     var aCode = "a".charCodeAt(0);
     var zCode = "z".charCodeAt(0);
-    if(charCode >= aCode && charCode <= zCode)
+    if((charCode >= aCode && charCode <= zCode) || charCode - aCode == -65)
     {
       var index = charCode - aCode;
       insertImageOnIndex(index);
@@ -35,7 +35,7 @@ function insertImageOnIndex(i)
 {
   var element = document.createElement("img");
 
-  if(i == -65) element.src = images[26];
+  if(i == -65) element.src = "ch/gap.png";
   else element.src = images[i];
   if(i == 18 || i == 20) { // for the S or U
     element.width  = size / 1.7;
@@ -50,6 +50,7 @@ function insertImageOnIndex(i)
     element.height = size;
   }
   element.style.marginLeft = "3px";
+  console.log(element.src);
   container.appendChild(element);
 }
 
