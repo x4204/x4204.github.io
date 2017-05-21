@@ -35,7 +35,7 @@ function insertImageOnIndex(i)
 {
   var element = document.createElement("img");
 
-  if(i == -65) element.src = "ch/gap.png";
+  if(i == -65) element.src ="ch/gap.png";
   else element.src = images[i];
   if(i == 18 || i == 20) { // for the S or U
     element.width  = size / 1.7;
