@@ -49,7 +49,8 @@ function insertImageOnIndex(i)
     element.width  = size;
     element.height = size;
   }
-  element.style.marginLeft = "3px";
+  element.style.paddingTop = "5px";
+  element.style.paddingLeft = "5px";
   container.appendChild(element);
 }
 
