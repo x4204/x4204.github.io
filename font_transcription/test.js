@@ -16,46 +16,88 @@ btn.addEventListener("click", transCode);
 
 function transCode()
 {
+  animateButton();
   removeContainerChildren();
-
-  for(var i=0; i<input.value.length; i++)
+  if(input.value != "")
   {
-    var charCode = input.value[i].toLowerCase().charCodeAt(0);
-    var aCode = "a".charCodeAt(0);
-    var zCode = "z".charCodeAt(0);
-    if((charCode >= aCode && charCode <= zCode) || charCode - aCode == -65)
+    var words = input.value.trim().split(" ");
+    for (var i=0; i<words.length; i++)
     {
-      var index = charCode - aCode;
-      insertImageOnIndex(index);
+      if(i+2 <= words.length) words[i] += " ";
+      insertTranscrWord(words[i]);
     }
+    animateContainer();
+  }
+  else {
+    container.style.visibility = "hidden";
   }
 }
 
-function insertImageOnIndex(i)
+function insertTranscrWord(w)
 {
-  var element = document.createElement("img");
+  var span = document.createElement("span");
 
-  if(i == -65) element.src ="ch/gap.png";
-  else element.src = images[i];
-  if(i == 18 || i == 20) { // for the S or U
-    element.width  = size / 1.7;
-    element.height = size;
+  for(var i=0; i<w.length; i++)
+  {
+    var aCode = "a".charCodeAt(0);
+    var charCode = w[i].toLowerCase().charCodeAt(0) - aCode;
+    var element = document.createElement("img");
+
+    element.src = images[charCode];
+    if(charCode == -65) element.src = images[26];
+    if(charCode == 18 || charCode == 20) { // for the S or U
+      element.width  = size / 1.7;
+      element.height = size;
+    }
+    else if(charCode == 22 || charCode == 24) { // for the W or Y
+      element.width  = size / 1.45;
+      element.height = size;
+    }
+    else {
+      element.width  = size;
+      element.height = size;
+    }
+    element.style.paddingTop = "5px";
+    element.style.paddingLeft = "5px";
+    span.appendChild(element);
   }
-  else if(i == 22 || i == 24) { // for the W or Y
-    element.width  = size / 1.45;
-    element.height = size;
-  }
-  else {
-    element.width  = size;
-    element.height = size;
-  }
-  element.style.paddingTop = "5px";
-  element.style.paddingLeft = "5px";
-  container.appendChild(element);
+  container.appendChild(span);
 }
 
 function removeContainerChildren()
 {
   while(container.firstChild)
     container.removeChild(container.firstChild);
+}
+
+function animateContainer()
+{
+  container.style.visibility = "visible";
+  var anim = container.animate(
+  [
+    { height: 0 },
+    { height: '62%'}
+  ],
+  {
+      duration: 400,
+      iterations: 1,
+      easing: 'ease-out'
+  }
+  );
+}
+
+function animateButton()
+{
+    var anim = btn.animate(
+    [
+      { width: '20%', height: '40px', backgroundColor: '#7eb282', marginLeft: '40%' },
+      { width: '22%', height: '48px', backgroundColor: '#417746', marginLeft: '39%'},
+      { width: '20%', height: '40px', backgroundColor: '#7eb282', marginLeft: '40%'},
+    ],
+    {
+      duration: 400,
+      iterations: 1,
+      easing: 'ease-out'
+    }
+    );
 }

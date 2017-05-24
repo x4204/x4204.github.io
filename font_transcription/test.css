@@ -3,6 +3,11 @@ body{
   padding: 0;
   background-color: #7eb282;
   min-width: 1000px;
+  min-height: 550px;
+}
+
+span{
+    display: inline-block;
 }
 
 #p1{
@@ -37,6 +42,7 @@ body{
   margin-top: 5vh;
   margin-bottom: 5vh;
   height: 90vh;
+  min-height: 750px;
   box-shadow: 3px 7px 30px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -47,7 +53,6 @@ body{
   font-family: monospace;
   display: inline-block;
   margin-left: 15%;
-  min-width: 490px;
 }
 
 #showImage{
@@ -55,7 +60,7 @@ body{
   width: 20%;
   height: 40px;
   margin-top: 20px;
-  margin-left: 39%;
+  margin-left: 40%;
   border-radius: 0px;
   border: 0;
   background-color: #7eb282;
@@ -66,17 +71,13 @@ body{
   box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
 }
 
-#showImage:active{
-  background-color: #3e7a42;
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
-}
-
 #container{
   margin-left: 5%;
   margin-top: 10px;
   width: 90%;
-  height: auto;
-  max-height: 50vh;
+  height: 62%;
   border: 1px solid black;
-  overflow: auto;
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
 }
