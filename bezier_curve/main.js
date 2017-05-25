@@ -13,6 +13,14 @@ var dragok = false;
 var startX;
 var startY;
 
+// each element of the <ul> (to show the coordinates of blue
+// handle and red handle)
+var blueX = document.getElementById("blueX");
+var blueY = document.getElementById("blueY");
+var redX = document.getElementById("redX");
+var redY = document.getElementById("redY");
+var result = document.getElementById("result");
+
 // an array of objects that define different shapes
 var shapes=[];
 // define 2 circles
@@ -73,8 +81,28 @@ function draw() {
   // redraw the bezier curve
   drawBezier();
   // redraw each shape in the shapes[] array
-  for(var i=0; i<shapes.length; i++)
-      circle(shapes[i]);
+  for(var i=0; i<shapes.length; i++) {
+    // update each lever
+    circle(shapes[i]);
+    // update the coordinates
+    updateCoords(shapes[i]);
+  }
+}
+
+// show coordinates
+function updateCoords(s) {
+  var X = Math.floor(s.x/(division/10))/100;
+  var Y = Math.floor((WIDTH - s.y)/(division/10))/100;
+
+  if (s.id == 0) {
+    blueX.innerHTML = "X: " + X;
+    blueY.innerHTML = "Y: " + Y;
+    result.innerHTML = "cubic-bezier(" + X + ", " + Y;
+  } else {
+    redX.innerHTML = "X: " + X;
+    redY.innerHTML = "Y: " + Y;
+    result.innerHTML += ", " + X + ", " + Y + ")";
+  }
 }
 
 // draw the bezier curve

@@ -4,7 +4,58 @@ body{
   margin: 0;
 }
 
+ul{
+  list-style-type: none;
+}
+
+ul li{
+  width: 185px;
+  height: 37px;
+  background-color: red;
+  display: inline-block;
+  padding: 2px;
+  margin: -2px;
+}
+
+p{
+  text-align: left;
+  vertical-align: middle;
+  font-size: 25px;
+  padding-top: 7px;
+  margin-left: 10px;
+  margin-top: 0px;
+}
+
+.blue li{
+  background-color: #97b8ed;
+}
+
+.red{
+  margin-top: -12px;
+  margin-bottom: 0;
+}
+
+.red li{
+  background-color: #ed9797;
+}
+
 #canvas{
-  margin: 40px;
+  margin: 50px;
   border: 2px solid black;
+}
+
+.result{
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.result li{
+  width: 370px;
+  padding: 4px;
+  background-color: #b9ed97;
+}
+
+#result{
+  padding: 1px;
+  margin-top: 3px;
 }
