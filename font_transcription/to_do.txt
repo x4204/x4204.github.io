@@ -1,0 +1,5 @@
+TO_DO{
+  0: add jquery,
+  1: responsive website,
+  2: add comments
+}
