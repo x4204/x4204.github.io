@@ -1,7 +1,7 @@
 var btn       = document.getElementById("showImage");
 var input     = document.getElementById("inputText");
 var container = document.getElementById("container");
-var size      = 50;
+var size      = 35;
 var images    = [
     "ch/A.png", "ch/B.png", "ch/C.png", "ch/D.png",  // 0-3
     "ch/E.png", "ch/F.png", "ch/G.png", "ch/H.png",  // 4-7
@@ -40,28 +40,34 @@ function insertTranscrWord(w)
   for(var i=0; i<w.length; i++)
   {
     var aCode = "a".charCodeAt(0);
-    var charCode = w[i].toLowerCase().charCodeAt(0) - aCode;
-    var element = document.createElement("img");
+    var zCode = "z".charCodeAt(0);
+    var charCode = w[i].toLowerCase().charCodeAt(0);
 
-    element.src = images[charCode];
-    if(charCode == -65) element.src = images[26];
-    if(charCode == 18 || charCode == 20) { // for the S or U
-      element.width  = size / 1.7;
-      element.height = size;
+    if((charCode >= aCode && charCode <= zCode) || charCode - aCode == -65)
+    {
+      charCode = charCode - aCode;
+      var element = document.createElement("img");
+
+      element.src = images[charCode];
+      if(charCode == -65) element.src = images[26];
+      if(charCode == 18 || charCode == 20) { // for the S or U
+        element.width  = size / 1.7;
+        element.height = size;
+      }
+      else if(charCode == 22 || charCode == 24) { // for the W or Y
+        element.width  = size / 1.45;
+        element.height = size;
+      }
+      else {
+        element.width  = size;
+        element.height = size;
+      }
+      element.style.paddingTop = "5px";
+      element.style.paddingLeft = "5px";
+      span.appendChild(element);
     }
-    else if(charCode == 22 || charCode == 24) { // for the W or Y
-      element.width  = size / 1.45;
-      element.height = size;
+    container.appendChild(span);
     }
-    else {
-      element.width  = size;
-      element.height = size;
-    }
-    element.style.paddingTop = "5px";
-    element.style.paddingLeft = "5px";
-    span.appendChild(element);
-  }
-  container.appendChild(span);
 }
 
 function removeContainerChildren()
@@ -76,7 +82,7 @@ function animateContainer()
   var anim = container.animate(
   [
     { height: 0 },
-    { height: '62%'}
+    { height: '60%'}
   ],
   {
       duration: 400,
@@ -90,9 +96,9 @@ function animateButton()
 {
     var anim = btn.animate(
     [
-      { width: '20%', height: '40px', backgroundColor: '#7eb282', marginLeft: '40%' },
-      { width: '22%', height: '48px', backgroundColor: '#417746', marginLeft: '39%'},
-      { width: '20%', height: '40px', backgroundColor: '#7eb282', marginLeft: '40%'},
+      { width: '20%', height: '40px', backgroundColor: '#7eb282', marginLeft: '40%', marginTop: '20px', borderRadius: '10px' },
+      { width: '21%', height: '44px', backgroundColor: '#417746', marginLeft: '39.5%', marginTop: '18px', borderRadius: '0px'  },
+      { width: '20%', height: '40px', backgroundColor: '#7eb282', marginLeft: '40%', marginTop: '20px', borderRadius: '10px'  }
     ],
     {
       duration: 400,

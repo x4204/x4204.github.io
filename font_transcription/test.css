@@ -1,9 +1,20 @@
+/* Importing Fonts */
+@font-face {
+  font-family: MerriweatherRegular;
+  src: url('Fonts/Merriweather-Regular.ttf');
+}
+/*
+@font-face {
+  font-family: MerriweatherBold;
+  src: url('Fonts/Merriweather-Bold.ttf');
+}*/
+
 body{
   margin: 0;
   padding: 0;
   background-color: #7eb282;
-  min-width: 1000px;
-  min-height: 550px;
+  min-width: 920px;
+  min-height: 600px;
 }
 
 span{
@@ -17,17 +28,18 @@ span{
   text-align: center;
   display: inline-block;
   font-size: 25px;
-  font-family: monospace;
+  font-family: MerriweatherRegular;
 }
 
 #p2{
   width: 100%;
   margin-left: 0;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   text-align: center;
   display: inline-block;
   font-size: 20px;
-  font-family: monospace;
+  font-family: MerriweatherRegular;
 }
 
 #info{
@@ -36,21 +48,18 @@ span{
 
 #mainDiv{
   background-color: white;
-  width: 70%;
+  width: 750px;
+  height: 750px;
   padding: 0;
   margin: 0 auto;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-  height: 90vh;
-  min-height: 750px;
-  box-shadow: 3px 7px 30px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.3);
 }
 
 #inputText{
   width: 70%;
   height: 30px;
   font-size: 20px;
-  font-family: monospace;
+  font-family: MerriweatherRegular;
   display: inline-block;
   margin-left: 15%;
 }
@@ -61,21 +70,21 @@ span{
   height: 40px;
   margin-top: 20px;
   margin-left: 40%;
-  border-radius: 0px;
+  border-radius: 10px;
   border: 0;
   background-color: #7eb282;
   color: white;
   outline: none;
   font-size: 20px;
-  font-family: monospace;
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+  font-family: MerriweatherRegular;
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.2);
 }
 
 #container{
   margin-left: 5%;
   margin-top: 10px;
   width: 90%;
-  height: 62%;
+  height: 60%;
   border: 1px solid black;
   overflow: hidden;
   visibility: hidden;
