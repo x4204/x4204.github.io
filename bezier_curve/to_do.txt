@@ -1,3 +1,5 @@
 TO DO{
-  
+  --- design
+  --- if possible, make the result text stable, and not wiggly
+  --- add a button which would copy the formula to clipboard
 }
