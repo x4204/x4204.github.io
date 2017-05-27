@@ -22,10 +22,22 @@ var redX = document.getElementById("redX");
 var redY = document.getElementById("redY");
 var result = document.getElementById("result");
 
-// listen for mouse events
+// get each range input
+var bx = document.getElementById("bx");
+var by = document.getElementById("by");
+var rx = document.getElementById("rx");
+var ry = document.getElementById("ry");
+
+// listen for canvas mouse events
 canvas.onmousedown = myDown;
 canvas.onmouseup = myUp;
 canvas.onmousemove = myMove;
+
+// listen for range input mouse events
+bx.onmousemove = bxMove;
+by.onmousemove = byMove;
+rx.onmousemove = rxMove;
+ry.onmousemove = ryMove;
 
 // an array of objects that define different shapes
 var shapes=[];
@@ -148,15 +160,19 @@ function updateCoords(s) {
     blueX.innerHTML = "X: " + X;
     blueY.innerHTML = "Y: " + Y;
     result.innerHTML = "cubic-bezier(" + X + ", " + Y;
+    bx.value = s.x + width;
+    by.value = s.y + height*2;
   } else {
     redX.innerHTML = "X: " + X;
     redY.innerHTML = "Y: " + Y;
     result.innerHTML += ", " + X + ", " + Y + ")";
+    rx.value = s.x + width;
+    ry.value = s.y + height*2;
   }
 }
 
 // handle mousedown events
-function myDown(e){
+function myDown(e) {
   // tell the browser we're handling this mouse event
   e.preventDefault();
   e.stopPropagation();
@@ -171,7 +187,6 @@ function myDown(e){
     var s = shapes[i];
     var dx = s.x - mx;
     var dy = -(-s.y - my);
-    console.log(dx, dy);
 
     // test if the mouse is inside this circle
     if (dx * dx + dy * dy < s.r * s.r){
@@ -185,7 +200,7 @@ function myDown(e){
 }
 
 // handle mouseup events
-function myUp(e){
+function myUp(e) {
   // tell the browser we're handling this mouse event
   e.preventDefault();
   e.stopPropagation();
@@ -198,7 +213,7 @@ function myUp(e){
 }
 
 // handle mousemove events
-function myMove(e){
+function myMove(e) {
   // if we're dragging anything...
   if (dragok){
     // tell the browser we're handling this mouse event
@@ -231,4 +246,32 @@ function myMove(e){
     startX = mx;
     startY = my;
   }
+}
+
+// process the blue x slider
+function bxMove() {
+  var x = bx.value - width;
+  shapes[0].x = x;
+  draw();
+}
+
+// process the blue y slider
+function byMove() {
+  var y = by.value - height*2;
+  shapes[0].y = y;
+  draw();
+}
+
+// process the red x slider
+function rxMove() {
+  var x = rx.value - width;
+  shapes[1].x = x;
+  draw();
+}
+
+// process the red y slider
+function ryMove() {
+  var y = ry.value - height*2;
+  shapes[1].y = y;
+  draw();
 }

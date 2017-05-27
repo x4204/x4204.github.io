@@ -51,7 +51,7 @@ h3{
   float: left;
   padding: 12px 10px;
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-family: MerriweatherRegular;
 }
 
@@ -125,7 +125,7 @@ h3{
 
 #controls{
   width: 338px;
-  height: 190px;
+  height: 180px;
   background-color: #bf97ed;
   margin-top: -184px;
   margin-left: 400px;
@@ -149,5 +149,5 @@ h3{
 #mainContainer{
   width: 750px;
   margin-left: 585px;
-  margin-top: -500px;
+  margin-top: -465px;
 }
