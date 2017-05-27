@@ -1,5 +1,6 @@
 var canvas = document.getElementById("canvas");
 var mainDiv = document.getElementById("mainDiv");
+var btn = document.getElementById("getFormula");
 var ct = canvas.getContext("2d");
 var width = canvas.width/3;
 var height = canvas.height/3;
@@ -38,6 +39,16 @@ bx.onmousemove = bxMove;
 by.onmousemove = byMove;
 rx.onmousemove = rxMove;
 ry.onmousemove = ryMove;
+
+// click event for "getFormula" button
+btn.addEventListener('click', function() {
+  var range = document.createRange();
+  range.selectNodeContents(result);
+  var selection = window.getSelection();
+  selection.addRange(range);
+  document.execCommand("copy");
+  selection.removeAllRanges();
+});
 
 // an array of objects that define different shapes
 var shapes=[];
