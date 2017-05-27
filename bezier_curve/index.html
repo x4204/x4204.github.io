@@ -6,20 +6,47 @@
     <title>Bezier Curve</title>
   </head>
   <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
+
     <div id="container">
-      <ul class="blue">
-        <li><p id="blueX"></p></li>
-        <li><p id="blueY"></p></li>
-      </ul>
-      <ul class="red">
-        <li><p id="redX"></p></li>
-        <li><p id="redY"></p></li>
-      </ul>
-      <ul class="result">
-        <li><p id="result"></p></li>
-      </ul>
+      <canvas id="canvas" width="500" height="500"></canvas>
     </div>
-    <script src="main.js"></script>
+
+    <div id="mainContainer">
+      <div id="header">
+        <h3>This is a bezier-curve tool</h3>
+        <p id="desc">
+          To get the formula for cubic bezier just move the
+          red and blue selectors to create a curve and it
+          will give you the formula for it. Alternatively
+          you can use the controls from the purple box.
+        </p>
+      </div>
+      <div id="info">
+        <ul class="blue">
+          <li><p id="blueX"></p></li>
+          <li><p id="blueY"></p></li>
+        </ul>
+        <ul class="red">
+          <li><p id="redX"></p></li>
+          <li><p id="redY"></p></li>
+        </ul>
+        <ul class="result">
+          <li><p id="result"></p></li>
+        </ul>
+        <input id="getFormula" type="button" value="Copy Formula">
+      </div>
+      <div id="controls">
+        <p class="rangeDesc">Blue X</p>
+        <input id="bx" class="slider" type="range" min="-1" max="2" step="0.01"><br>
+        <p class="rangeDesc">Blue Y</p>
+        <input id="by" class="slider"  type="range" min="-1" max="2" step="0.01"><br>
+        <p class="rangeDesc">Red X</p>
+        <input id="rx" class="slider"  type="range" min="-1" max="2" step="0.01"><br>
+        <p class="rangeDesc">Red Y</p>
+        <input id="ry" class="slider"  type="range" min="-1" max="2" step="0.01"><br>
+      </div>
+    </div>
+
+  <script src="main.js"></script>
   </body>
 </html>

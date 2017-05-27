@@ -1,15 +1,23 @@
+@font-face {
+  font-family: MerriweatherRegular;
+  src: url('Fonts/Merriweather-Regular.ttf');
+}
+
 body{
   padding: 0;
   margin: 0;
+  background-color: #888;
 }
 
 ul{
   list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 ul li{
-  width: 185px;
-  height: 37px;
+  width: 165px;
+  height: 30px;
   background-color: red;
   display: inline-block;
   padding: 2px;
@@ -19,10 +27,38 @@ ul li{
 p{
   text-align: left;
   vertical-align: middle;
-  font-size: 25px;
+  font-size: 15px;
   padding-top: 7px;
   margin-left: 10px;
   margin-top: 0px;
+  text-align: center;
+  font-family: MerriweatherRegular;
+}
+
+h3{
+  width: 100%;
+  margin-left: 0;
+  margin-top: 30px;
+  text-align: center;
+  display: inline-block;
+  font-size: 25px;
+  font-family: MerriweatherRegular;
+}
+
+.rangeDesc{
+  width: 70px;
+  clear: left;
+  float: left;
+  padding: 12px 10px;
+  margin: 0;
+  font-size: 18px;
+  font-family: MerriweatherRegular;
+}
+
+.slider{
+  width: 200px;
+  float: left;
+  padding: 10px;
 }
 
 .blue li{
@@ -30,17 +66,12 @@ p{
 }
 
 .red{
-  margin-top: -12px;
+  margin-top: 4px;
   margin-bottom: 0;
 }
 
 .red li{
   background-color: #ed9797;
-}
-
-#canvas{
-  margin: 50px;
-  border: 2px solid black;
 }
 
 .result{
@@ -49,12 +80,74 @@ p{
 }
 
 .result li{
-  width: 370px;
+  width: 330px;
   padding: 4px;
   background-color: #b9ed97;
 }
 
+#desc{
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 75%;
+  margin-left: 12.5%;
+  font-size: 18px;
+}
+
+#canvas{
+  margin: 0;
+  padding: 0;
+  border: 2px solid black;
+}
+
 #result{
-  padding: 1px;
-  margin-top: 3px;
+  padding: 0;
+  margin-top: 6px;
+  margin-left: 0;
+}
+
+#container{
+  padding: 0;
+  margin: 0;
+  width: 504px;
+  height: 504px;
+  margin-left: 40px;
+  margin-top: 30px;
+  background-color: #eee;
+}
+
+#info{
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
+  margin-top: 40px;
+}
+
+#controls{
+  width: 338px;
+  height: 190px;
+  background-color: #bf97ed;
+  margin-top: -184px;
+  margin-left: 400px;
+}
+
+#getFormula{
+  display: block;
+  width: 150px;
+  height: 40px;
+  border: 0;
+  background-color: #61aaa9;
+  margin-top: 30px;
+  margin-left: 94px;
+  color: white;
+  outline: none;
+  font-size: 15px;
+  font-family: MerriweatherRegular;
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.2);
+}
+
+#mainContainer{
+  width: 750px;
+  margin-left: 585px;
+  margin-top: -500px;
 }

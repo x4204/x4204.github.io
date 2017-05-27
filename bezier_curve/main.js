@@ -1,4 +1,5 @@
 var canvas = document.getElementById("canvas");
+var mainDiv = document.getElementById("mainDiv");
 var ct = canvas.getContext("2d");
 var width = canvas.width/3;
 var height = canvas.height/3;
@@ -6,6 +7,8 @@ var division = width/10;
 var BB = canvas.getBoundingClientRect();
 var offsetX = BB.left;
 var offsetY = BB.top;
+
+// console.log(window.innerWidth);
 // drag related variables
 var dragok = false;
 var startX;
@@ -46,7 +49,6 @@ shapes.push({// red circle
 
 translate(width, height*2);
 draw();
-
 
 function translate(x, y) {
   ct.translate(x, y);
@@ -169,6 +171,7 @@ function myDown(e){
     var s = shapes[i];
     var dx = s.x - mx;
     var dy = -(-s.y - my);
+    console.log(dx, dy);
 
     // test if the mouse is inside this circle
     if (dx * dx + dy * dy < s.r * s.r){
