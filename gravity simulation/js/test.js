@@ -57,5 +57,6 @@ bStart.addEventListener('click', function() {
 
 bStop.addEventListener('click', function() {
   clearInterval(interval);
+  isStart = false;
   console.log('Cleared interval');
 });
