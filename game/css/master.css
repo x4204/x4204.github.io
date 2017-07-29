@@ -1,0 +1,19 @@
+body{
+  margin: 0;
+  padding: 0;
+  background-color: #d3d3d3;
+}
+
+.canvasContainer{
+  border: 1px solid #b3b3b3;
+  background-color: #eee;
+  width: 600px;
+  height: 600px;
+  background-image: url('../img/grid.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#canvas{
+
+}
