@@ -1,17 +1,23 @@
 const FPS = 60;
-const M_SPEED = 4;    // movement speed
-const R_SPEED = 0.1;  // rotation speed
-let keys = { w: false, a: false, s: false, d: false };
+let keys = { w: false, a: false, s: false, d: false, space: false };
 let canvas = document.querySelector(`#canvas`);
 let ctx = canvas.getContext(`2d`);
 let target;
+// for testing -->
+let startBtn = document.querySelector(`#startBtn`);
+let stopBtn = document.querySelector(`#stopBtn`);
+let status = document.querySelector(`#status`);
+// <-- for testing
 
 let tri = new Triangle(300, 300, 0);
 tri.draw();
 
 document.addEventListener('mousedown', function(event) {
   target = event.target;
-  // console.log(event.target);
+  if (target == canvas)
+    status.innerHTML = '(you are IN the game)';
+  else
+    status.innerHTML = '(you are NOT in the game)';
 });
 
 document.addEventListener('keydown', function(event) {
@@ -26,8 +32,11 @@ document.addEventListener('keydown', function(event) {
       case 'w':
         keys.w = true;
         break;
-      case 's':
-        keys.s = true;
+      // case 's':        // no backwards for the moment
+      //   keys.s = true;
+      //   break;
+      case ' ':
+        keys.space = true;
         break;
     }
   }
@@ -45,8 +54,11 @@ document.addEventListener('keyup', function(event) {
       case 'w':
         keys.w = false;
         break;
-      case 's':
-        keys.s = false;
+      // case 's':
+      //   keys.s = false;
+      //   break;
+      case ' ':
+        keys.space = false;
         break;
     }
   }
@@ -54,37 +66,24 @@ document.addEventListener('keyup', function(event) {
 
 let mainInterval = setInterval(function() {
   ctx.clearRect(0, 0, 600, 600);
-  if (keys.w == true) moveForwards(tri);
-  if (keys.a == true) rotateLeft(tri);
-  if (keys.s == true) moveBackwards(tri);
-  if (keys.d == true) rotateRight(tri);
+  if (keys.w == true) tri.moveForwards();
+  else if (Math.abs(tri.velocity[0]) > DEC_RATE * 1.1
+        || Math.abs(tri.velocity[1]) > DEC_RATE * 1.1)
+    tri.decelerate();
+  if (keys.a == true) tri.rotateLeft();
+  if (keys.d == true) tri.rotateRight();
   tri.draw();
 }, 1000/FPS);
 
 
 
-let moveForwards = function(obj) {
-  obj.x -= Math.cos(obj.offset + 0.5 * Math.PI) * M_SPEED;
-  obj.y -= Math.sin(obj.offset + 0.5 * Math.PI) * M_SPEED;
-}
 
-let moveBackwards = function(obj) {
-  obj.x += Math.cos(obj.offset + 0.5 * Math.PI) * M_SPEED;
-  obj.y += Math.sin(obj.offset + 0.5 * Math.PI) * M_SPEED;
-}
 
-let rotateLeft = function(obj) {
-  obj.offset -= R_SPEED;
-}
 
-let rotateRight = function(obj) {
-  obj.offset += R_SPEED;
-}
+
 
 //------------------------------------------------------------------------------
 // for testing purposes -->
-let startBtn = document.querySelector(`#startBtn`);
-let stopBtn = document.querySelector(`#stopBtn`);
 let isStart = false;
 let intvl;
 startBtn.addEventListener('click', function() {
