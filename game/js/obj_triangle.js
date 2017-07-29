@@ -2,7 +2,7 @@ let SIZE = 12;
 let MAX_SPEED = 3;
 let ACC_RATE = 0.05;
 let DEC_RATE = 0.03;
-const R_SPEED = 0.0;  // rotation speed
+const R_SPEED = 0.04;  // rotation speed
 
 function Triangle(originx, originy, angleoff) {
   this.x = originx;
