@@ -6,9 +6,10 @@ let ctx = canvas.getContext(`2d`);
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
 let currObj;
-let mainInterval;     // update for the game
-let targetSpawn;      // target spawn interval
-let shootTimer = 20;       // interval for shooting;
+let mainInterval;           // game loop
+let targetSpawn;            // target spawn interval
+let shootTimer = 20;        // interval for shooting;
+
 // for testing -->
 let startBtn = document.querySelector(`#startBtn`);
 let stopBtn = document.querySelector(`#stopBtn`);
@@ -40,7 +41,7 @@ document.addEventListener('keydown', function(event) {
       case 87:
         keys.w = true;
         break;
-      // case 's':        // no backwards for now
+      // case 83:        // there will be no backwards movement for now
       //   keys.s = true;
       //   break;
       case 38:
@@ -62,7 +63,7 @@ document.addEventListener('keyup', function(event) {
       case 87:
         keys.w = false;
         break;
-      // case 's':
+      // case 83:
       //   keys.s = false;
       //   break;
       case 38:
@@ -81,6 +82,7 @@ mainInterval = setInterval(function() {
     tri.decelerate();
   if (keys.a == true) tri.rotateLeft();
   if (keys.d == true) tri.rotateRight();
+  if (keys.s == true) tri.moveBackwards();
   if (keys.shoot == true) {
     if (shootTimer % 20 == 0)
       bullets.push(new Bullet(tri.x, tri.y, tri.offset));

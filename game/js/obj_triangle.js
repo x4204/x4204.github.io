@@ -51,12 +51,25 @@ function Triangle(originx, originy, angleoff) {
     this.y -= this.velocity[1];
     // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
   }
-  // no backwards for the now -->
+  // dont know why if i use ACC_RATE the velocity backwards is a little bigger
+  // than when moving forwards
   // this.moveBackwards = function() {
-  //   this.x += Math.cos(this.offset + 0.5 * Math.PI) * ACC_RATE;
-  //   this.y += Math.sin(this.offset + 0.5 * Math.PI) * ACC_RATE;
+  //   this.accel[0] = Math.cos(this.offset - 0.5 * Math.PI) * DEC_RATE;
+  //   this.accel[1] = Math.sin(this.offset - 0.5 * Math.PI) * DEC_RATE;
+  //   if (this.velocity[0] > MAX_SPEED)
+  //     this.velocity[0] = MAX_SPEED - 0.01;
+  //   else if (this.velocity[0] < -MAX_SPEED)
+  //     this.velocity[0] = -MAX_SPEED + 0.01;
+  //   else this.velocity[0] += this.accel[0];
+  //   if (this.velocity[1] > MAX_SPEED)
+  //     this.velocity[1] = MAX_SPEED - 0.01;
+  //   else if (this.velocity[1] < -MAX_SPEED)
+  //     this.velocity[1] = -MAX_SPEED + 0.01;
+  //   else this.velocity[1] += this.accel[1];
+  //   this.x -= this.velocity[0];
+  //   this.y -= this.velocity[1];
+  //   // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
   // }
-  // <-- no backwards for the moment
   this.rotateLeft = function() {
     this.offset -= R_SPEED;
   }

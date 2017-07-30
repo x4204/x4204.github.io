@@ -16,7 +16,6 @@ function Bullet(originx, originy, offset) {
       ctx.strokeStyle = '#999';
       ctx.fillStyle = '#ef5858';
       ctx.arc(this.x, this.y, R_BULLET, 0, 2 * Math.PI);
-    ctx.stroke();
     ctx.fill();
   }
   this.update = function() {
