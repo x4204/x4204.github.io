@@ -86,7 +86,9 @@ mainInterval = setInterval(function() {
     shootTimer++;
   }
   tri.keepOnTheMap();
-  tri.draw();
+  for (let i = 0; i < targets.length; i++) {
+    targets[i].draw();
+  }
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].update();
     if (bullets[i].collides(targets)) {
@@ -97,9 +99,7 @@ mainInterval = setInterval(function() {
       bullets.splice(i, 1);
     else bullets[i].draw();
   }
-  for (let i = 0; i < targets.length; i++) {
-    targets[i].draw();
-  }
+  tri.draw();
 }, 1000/FPS);
 
 targetSpawn = setInterval(function() {

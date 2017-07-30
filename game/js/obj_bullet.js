@@ -33,7 +33,7 @@ function Bullet(originx, originy, offset) {
     for (let i = 0; i < a.length && !collision; i++) {
       let diffx = Math.pow(this.x - a[i].x, 2);
       let diffy = Math.pow(this.y - a[i].y, 2);
-      let diffr = Math.pow(this.r - a[i].r, 2);
+      let diffr = Math.pow(this.r + a[i].r, 2);
       if(diffx + diffy <= diffr) {
         collision = 1;
         a.splice(i, 1);
