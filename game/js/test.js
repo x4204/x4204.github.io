@@ -114,7 +114,7 @@ targetSpawn = setInterval(function() {
 
 
 let drawScore = function() {
-  ctx.font="20px Arial";
+  ctx.font = '21px TheFont';
   ctx.fillStyle = '#ffcc00';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 4;

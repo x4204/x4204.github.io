@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'TheFont';
+    src: url('../fonts/the_font.ttf');
+}
+
 body{
   margin: 0;
   padding: 0;
