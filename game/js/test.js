@@ -4,9 +4,10 @@ let canvas = document.querySelector(`#canvas`);
 let ctx = canvas.getContext(`2d`);
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
-let target;
+let currObj;
 let mainInterval;     // update for the game
-let shootTimer = 15;       // interval for shooting;
+let targetSpawn;      // target spawn interval
+let shootTimer = 20;       // interval for shooting;
 // for testing -->
 let startBtn = document.querySelector(`#startBtn`);
 let stopBtn = document.querySelector(`#stopBtn`);
@@ -15,18 +16,19 @@ let status = document.querySelector(`#status`);
 
 let tri = new Triangle(300, 300, 0);
 let bullets = [];
+let targets = [ new Target() ];
 tri.draw();
 
 document.addEventListener('mousedown', function(event) {
-  target = event.target;
-  if (target == canvas)
+  currObj = event.target;
+  if (currObj == canvas)
     status.innerHTML = '(you are IN the game)';
   else
     status.innerHTML = '(you are NOT in the game)';
 });
 
 document.addEventListener('keydown', function(event) {
-  if (target == canvas) {
+  if (currObj == canvas) {
     switch (event.which) {
       case 65:
         keys.a = true;
@@ -48,7 +50,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 document.addEventListener('keyup', function(event) {
-  if (target == canvas) {
+  if (currObj == canvas) {
     switch (event.which) {
       case 65:
         keys.a = false;
@@ -64,7 +66,7 @@ document.addEventListener('keyup', function(event) {
       //   break;
       case 38:
         keys.shoot = false;
-        shootTimer = 15;
+        shootTimer = 20;
         break;
     }
   }
@@ -79,7 +81,7 @@ mainInterval = setInterval(function() {
   if (keys.a == true) tri.rotateLeft();
   if (keys.d == true) tri.rotateRight();
   if (keys.shoot == true) {
-    if (shootTimer % 15 == 0)
+    if (shootTimer % 20 == 0)
       bullets.push(new Bullet(tri.x, tri.y, tri.offset));
     shootTimer++;
   }
@@ -87,12 +89,22 @@ mainInterval = setInterval(function() {
   tri.draw();
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].update();
+    if (bullets[i].collides(targets)) {
+      bullets.splice(i, 1);
+      break;
+    }
     if (bullets[i].isOutOfBoundries())
       bullets.splice(i, 1);
     else bullets[i].draw();
   }
+  for (let i = 0; i < targets.length; i++) {
+    targets[i].draw();
+  }
 }, 1000/FPS);
 
+targetSpawn = setInterval(function() {
+  targets.push(new Target());
+}, 4000);
 
 
 
@@ -119,5 +131,6 @@ stopBtn.addEventListener('click', function() {
   isStart = false;
   clearInterval(intvl);
   clearInterval(mainInterval);
+  clearInterval(targetSpawn);
 });
 // <-- for testing purposes
