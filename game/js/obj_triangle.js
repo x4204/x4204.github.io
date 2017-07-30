@@ -70,4 +70,29 @@ function Triangle(originx, originy, angleoff) {
     this.y -= this.velocity[1];
     // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
   }
+  this.keepOnTheMap = function() {
+    // variant to keep on the map by teleporting to the opposite point of the map
+    // if (this.x < 0)      this.x = WIDTH;
+    // if (this.x > WIDTH)  this.x = 0;
+    // if (this.y < 0)      this.y = HEIGHT;
+    // if (this.y > HEIGHT) this.y = 0;
+    
+    // variant to keep on the map by stopping/bouncing off the wall
+    if (this.x < 10) {
+      this.x = 10;
+      this.velocity[0] *= -0.5;
+    }
+    if (this.x > WIDTH - 10) {
+      this.x = WIDTH - 10;
+      this.velocity[0] *= -0.5;
+    }
+    if (this.y < 10) {
+      this.y = 10;
+      this.velocity[1] *= -0.5;
+    }
+    if (this.y > HEIGHT - 10) {
+      this.y = HEIGHT - 10;
+      this.velocity[1] *= -0.5;
+    }
+  }
 }

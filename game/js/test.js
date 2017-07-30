@@ -2,6 +2,8 @@ const FPS = 60;
 let keys = { w: false, a: false, s: false, d: false, space: false };
 let canvas = document.querySelector(`#canvas`);
 let ctx = canvas.getContext(`2d`);
+const WIDTH = canvas.width;
+const HEIGHT = canvas.height;
 let target;
 // for testing -->
 let startBtn = document.querySelector(`#startBtn`);
@@ -72,6 +74,7 @@ let mainInterval = setInterval(function() {
     tri.decelerate();
   if (keys.a == true) tri.rotateLeft();
   if (keys.d == true) tri.rotateRight();
+  tri.keepOnTheMap();
   tri.draw();
 }, 1000/FPS);
 
