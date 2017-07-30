@@ -1,4 +1,5 @@
 const FPS = 60;
+let SCORE = 0;
 let keys = { w: false, a: false, s: false, d: false, shoot: false };
 let canvas = document.querySelector(`#canvas`);
 let ctx = canvas.getContext(`2d`);
@@ -93,6 +94,7 @@ mainInterval = setInterval(function() {
     bullets[i].update();
     if (bullets[i].collides(targets)) {
       bullets.splice(i, 1);
+      SCORE += 10;
       break;
     }
     if (bullets[i].isOutOfBoundries())
@@ -100,6 +102,7 @@ mainInterval = setInterval(function() {
     else bullets[i].draw();
   }
   tri.draw();
+  drawScore();
 }, 1000/FPS);
 
 targetSpawn = setInterval(function() {
@@ -110,7 +113,14 @@ targetSpawn = setInterval(function() {
 
 
 
-
+let drawScore = function() {
+  ctx.font="20px Arial";
+  ctx.fillStyle = '#ffcc00';
+  ctx.strokeStyle = '#888';
+  ctx.lineWidth = 4;
+  ctx.strokeText(`Score: ${SCORE}`, 10, 25);
+  ctx.fillText(`Score: ${SCORE}`, 10, 25);
+}
 
 //------------------------------------------------------------------------------
 // for testing purposes -->

@@ -25,7 +25,7 @@ function Triangle(originx, originy, angleoff) {
     ];
     ctx.beginPath();
       ctx.lineWidth = 2;
-      ctx.strokeStyle = '#999';
+      ctx.strokeStyle = '#888';
       ctx.fillStyle = '#ffcc00';
       ctx.moveTo(top[0], top[1]);
       ctx.lineTo(left[0], left[1]);

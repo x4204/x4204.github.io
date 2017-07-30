@@ -11,9 +11,9 @@ function Target() {
   this.r = Math.random() * (T_MAX_RAD - T_MIN_RAD) + T_MIN_RAD;
   this.draw = function () {
     ctx.beginPath();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = '#999';
-      ctx.fillStyle = '#19845f';
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#888';
+      ctx.fillStyle = '#92bfce';
       ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fill();
