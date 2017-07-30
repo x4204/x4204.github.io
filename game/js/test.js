@@ -1,10 +1,12 @@
 const FPS = 60;
-let keys = { w: false, a: false, s: false, d: false, space: false };
+let keys = { w: false, a: false, s: false, d: false, shoot: false };
 let canvas = document.querySelector(`#canvas`);
 let ctx = canvas.getContext(`2d`);
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
 let target;
+let mainInterval;     // update for the game
+let shootTimer = 10;       // interval for shooting;
 // for testing -->
 let startBtn = document.querySelector(`#startBtn`);
 let stopBtn = document.querySelector(`#stopBtn`);
@@ -12,6 +14,7 @@ let status = document.querySelector(`#status`);
 // <-- for testing
 
 let tri = new Triangle(300, 300, 0);
+let bullets = [];
 tri.draw();
 
 document.addEventListener('mousedown', function(event) {
@@ -24,21 +27,21 @@ document.addEventListener('mousedown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (target == canvas) {
-    switch (event.key) {
-      case 'a':
+    switch (event.which) {
+      case 65:
         keys.a = true;
         break;
-      case 'd':
+      case 68:
         keys.d = true;
         break;
-      case 'w':
+      case 87:
         keys.w = true;
         break;
-      // case 's':        // no backwards for the moment
+      // case 's':        // no backwards for now
       //   keys.s = true;
       //   break;
-      case ' ':
-        keys.space = true;
+      case 38:
+        keys.shoot = true;
         break;
     }
   }
@@ -46,27 +49,28 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keyup', function(event) {
   if (target == canvas) {
-    switch (event.key) {
-      case 'a':
+    switch (event.which) {
+      case 65:
         keys.a = false;
         break;
-      case 'd':
+      case 68:
         keys.d = false;
         break;
-      case 'w':
+      case 87:
         keys.w = false;
         break;
       // case 's':
       //   keys.s = false;
       //   break;
-      case ' ':
-        keys.space = false;
+      case 38:
+        keys.shoot = false;
+        shootTimer = 10;
         break;
     }
   }
 });
 
-let mainInterval = setInterval(function() {
+mainInterval = setInterval(function() {
   ctx.clearRect(0, 0, 600, 600);
   if (keys.w == true) tri.moveForwards();
   else if (Math.abs(tri.velocity[0]) > DEC_RATE * 1.1
@@ -74,8 +78,17 @@ let mainInterval = setInterval(function() {
     tri.decelerate();
   if (keys.a == true) tri.rotateLeft();
   if (keys.d == true) tri.rotateRight();
+  if (keys.shoot == true) {
+    if (shootTimer % 10 == 0)
+      bullets.push(new Bullet(tri.x, tri.y, tri.offset));
+    shootTimer++;
+  }
   tri.keepOnTheMap();
   tri.draw();
+  for (let i = 0; i < bullets.length; i++) {
+    bullets[i].update();
+    bullets[i].draw();
+  }
 }, 1000/FPS);
 
 

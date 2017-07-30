@@ -51,7 +51,7 @@ function Triangle(originx, originy, angleoff) {
     this.y -= this.velocity[1];
     // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
   }
-  // no backwards for the moment -->
+  // no backwards for the now -->
   // this.moveBackwards = function() {
   //   this.x += Math.cos(this.offset + 0.5 * Math.PI) * ACC_RATE;
   //   this.y += Math.sin(this.offset + 0.5 * Math.PI) * ACC_RATE;
@@ -76,7 +76,7 @@ function Triangle(originx, originy, angleoff) {
     // if (this.x > WIDTH)  this.x = 0;
     // if (this.y < 0)      this.y = HEIGHT;
     // if (this.y > HEIGHT) this.y = 0;
-    
+
     // variant to keep on the map by stopping/bouncing off the wall
     if (this.x < 10) {
       this.x = 10;
