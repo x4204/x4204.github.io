@@ -90,6 +90,10 @@ mainInterval = setInterval(function() {
   }
   tri.keepOnTheMap();
   for (let i = 0; i < targets.length; i++) {
+    if (tri.collides(targets[i])) {
+        clearInterval(mainInterval);
+        drawGameOver();
+    }
     targets[i].draw();
   }
   for (let i = 0; i < bullets.length; i++) {
@@ -109,7 +113,7 @@ mainInterval = setInterval(function() {
 
 targetSpawn = setInterval(function() {
   targets.push(new Target());
-}, 4000);
+}, 3500);
 
 
 
@@ -122,6 +126,21 @@ let drawScore = function() {
   ctx.lineWidth = 4;
   ctx.strokeText(`Score: ${SCORE}`, 10, 25);
   ctx.fillText(`Score: ${SCORE}`, 10, 25);
+}
+
+let drawGameOver = function() {
+  ctx.font = '41px TheFont';
+  ctx.fillStyle = '#ffcc00';
+  ctx.strokeStyle = '#888';
+  ctx.lineWidth = 6;
+  ctx.strokeText(`You Lost`, WIDTH / 2 - 83, HEIGHT / 2 - 20);
+  ctx.fillText(`You Lost`, WIDTH / 2 - 83, HEIGHT / 2 - 20);
+  ctx.strokeText(`Final Score: ${SCORE}`,
+              WIDTH / 2 - 130 - (SCORE.toString().length - 1) * 10,
+              HEIGHT / 2 + 30);
+  ctx.fillText(`Final Score: ${SCORE}`,
+              WIDTH / 2 - 130 - (SCORE.toString().length - 1) * 10,
+              HEIGHT / 2 + 30);
 }
 
 //------------------------------------------------------------------------------

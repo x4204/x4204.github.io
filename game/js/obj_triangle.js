@@ -10,16 +10,19 @@ function Triangle(originx, originy, angleoff) {
   this.velocity = [0, 0];
   this.accel = [0, 0];
   this.offset = angleoff * (Math.PI / 180);
+  let left;
+  let right;
+  let top;
   this.draw = function() {
-    let left = [    // the left point of the triangle
+    left = [    // the left point of the triangle
       this.x - Math.cos(this.offset + Math.PI) * SIZE,
       this.y - Math.sin(this.offset + Math.PI) * SIZE
     ];
-    let right = [   // the right point of the triangle
+    right = [   // the right point of the triangle
       this.x + Math.cos(this.offset + Math.PI) * SIZE,
       this.y + Math.sin(this.offset + Math.PI) * SIZE
     ];
-    let top = [     // the top point of the triangle
+    top = [     // the top point of the triangle
       this.x - Math.cos(this.offset + 0.5 * Math.PI) * SIZE * 2,
       this.y - Math.sin(this.offset + 0.5 * Math.PI) * SIZE * 2
     ];
@@ -107,5 +110,43 @@ function Triangle(originx, originy, angleoff) {
       this.y = HEIGHT - 10;
       this.velocity[1] *= -0.5;
     }
+  }
+  this.collides = function(obj) {
+    let a = pointToSegment(obj, top, left) - obj.r;
+    let b = pointToSegment(obj, top, right) - obj.r;
+    let c = pointToSegment(obj, right, left) - obj.r;
+    if (a < 1 || b < 1 || c < 1) return true;
+    else return false;
+  }
+
+  let pointToSegment = function(p, l1, l2) {
+    let A = p.x - l1[0];
+    let B = p.y - l1[1];
+    let C = l2[0] - l1[0];
+    let D = l2[1] - l1[1];
+
+    let dot = A*C + B*D;
+    let len_sq = C*C + D*D;
+    let param = -1;
+    if (len_sq != 0) param = dot;
+
+    let xx, yy;
+
+    if (param < 0) {
+      xx = l1[0];
+      yy = l1[1];
+    }
+    else if (param > 1) {
+      xx = l2[0];
+      yy = l2[1];
+    }
+    else {
+      xx = l1[0] + param * C;
+      yy = l1[1] + param * D;
+    }
+
+    let dx = p.x - xx;
+    let dy = p.y - yy;
+    return Math.sqrt(dx*dx + dy*dy);
   }
 }
