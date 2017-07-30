@@ -6,7 +6,7 @@ const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
 let target;
 let mainInterval;     // update for the game
-let shootTimer = 10;       // interval for shooting;
+let shootTimer = 15;       // interval for shooting;
 // for testing -->
 let startBtn = document.querySelector(`#startBtn`);
 let stopBtn = document.querySelector(`#stopBtn`);
@@ -64,7 +64,7 @@ document.addEventListener('keyup', function(event) {
       //   break;
       case 38:
         keys.shoot = false;
-        shootTimer = 10;
+        shootTimer = 15;
         break;
     }
   }
@@ -73,13 +73,13 @@ document.addEventListener('keyup', function(event) {
 mainInterval = setInterval(function() {
   ctx.clearRect(0, 0, 600, 600);
   if (keys.w == true) tri.moveForwards();
-  else if (Math.abs(tri.velocity[0]) > DEC_RATE * 1.1
-        || Math.abs(tri.velocity[1]) > DEC_RATE * 1.1)
+  else if (Math.abs(tri.velocity[0]) > DEC_RATE
+        || Math.abs(tri.velocity[1]) > DEC_RATE)
     tri.decelerate();
   if (keys.a == true) tri.rotateLeft();
   if (keys.d == true) tri.rotateRight();
   if (keys.shoot == true) {
-    if (shootTimer % 10 == 0)
+    if (shootTimer % 15 == 0)
       bullets.push(new Bullet(tri.x, tri.y, tri.offset));
     shootTimer++;
   }
@@ -87,7 +87,9 @@ mainInterval = setInterval(function() {
   tri.draw();
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].update();
-    bullets[i].draw();
+    if (bullets[i].isOutOfBoundries())
+      bullets.splice(i, 1);
+    else bullets[i].draw();
   }
 }, 1000/FPS);
 

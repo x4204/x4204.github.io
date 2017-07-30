@@ -1,5 +1,5 @@
 let SIZE = 12;
-let MAX_SPEED = 3;
+let MAX_SPEED = 2;
 let ACC_RATE = 0.05;
 let DEC_RATE = 0.03;
 const R_SPEED = 0.04;  // rotation speed
