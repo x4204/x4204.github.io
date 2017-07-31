@@ -10,6 +10,7 @@ function Triangle(originx, originy, angleoff) {
   this.velocity = [0, 0];
   this.accel = [0, 0];
   this.offset = angleoff * (Math.PI / 180);
+  // this.color = [ 0, 200, 0 ];
   let left;
   let right;
   let top;
@@ -29,7 +30,7 @@ function Triangle(originx, originy, angleoff) {
     ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle = '#888';
-      ctx.fillStyle = '#ffcc00';
+      ctx.fillStyle = '#ffcc00';//`rgb(${this.color[0]}, ${this.color[1]}, ${this.color[2]})`;
       ctx.moveTo(top[0], top[1]);
       ctx.lineTo(left[0], left[1]);
       ctx.lineTo(right[0], right[1]);

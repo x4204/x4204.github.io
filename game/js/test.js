@@ -1,7 +1,7 @@
 const FPS = 60;
 let SCORE = 0;      // player score
 let HEALTH = 100;   // player health
-let ARMOR = 0;      // player armor
+let ARMOR = 100;      // player armor
 let keys = { w: false, a: false, s: false, d: false, shoot: false };
 let canvas = document.querySelector(`#canvas`);
 let ctx = canvas.getContext(`2d`);
@@ -11,6 +11,7 @@ let currObj;
 let mainInterval;           // game loop
 let targetSpawn;            // target spawn interval
 let shootTimer = 20;        // interval for shooting;
+let hpDamageTimer = 0;     // interval for hp damage
 
 // for testing -->
 let startBtn = document.querySelector(`#startBtn`);
@@ -91,18 +92,33 @@ mainInterval = setInterval(function() {
     shootTimer++;
   }
   tri.keepOnTheMap();
-  for (let i = 0; i < targets.length; i++) {
+  for (let i = 0; i < targets.length; i++) { // check for triangle-circle collision
     if (tri.collides(targets[i])) {
-        clearInterval(mainInterval);
-        drawGameOver();
+        if (hpDamageTimer % 20 == 0){
+          if (ARMOR > 0) {
+            ARMOR -= 21;
+            HEALTH -= 4;
+          } else {
+            HEALTH -= 25;
+          }
+          hpDamageTimer = 0;
+        }
+        if (HEALTH <= 0){
+          clearInterval(mainInterval);
+          drawGameOver();
+        }
+        hpDamageTimer++;
+    }
+    if (targets[i].r < 1) {
+      targets.splice(i, 1);
     }
     targets[i].draw();
   }
-  for (let i = 0; i < bullets.length; i++) {
+  for (let i = 0; i < bullets.length; i++) { // check for circle-circle collision
     bullets[i].update();
     if (bullets[i].collides(targets)) {
       bullets.splice(i, 1);
-      SCORE += 10;
+      SCORE += 1;
       break;
     }
     if (bullets[i].isOutOfBoundries())
@@ -117,7 +133,7 @@ mainInterval = setInterval(function() {
 
 targetSpawn = setInterval(function() {
   targets.push(new Target());
-}, 3500);
+}, 1000);
 
 
 
@@ -146,8 +162,8 @@ let drawArmor = function() {
   ctx.fillStyle = '#2475c6';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 2;
-  ctx.strokeText(`Armor: ${ARMOR}`, WIDTH - 110, 25);
-  ctx.fillText(`Armor: ${ARMOR}`, WIDTH - 110, 25);
+  ctx.strokeText(`Armor: ${ARMOR}`, WIDTH - 120, 25);
+  ctx.fillText(`Armor: ${ARMOR}`, WIDTH - 120, 25);
 }
 
 let drawGameOver = function() {

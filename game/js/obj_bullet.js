@@ -1,5 +1,6 @@
 const R_BULLET = 4;     // bullet radius
 const S_BULLET = 4;     // bullet speed
+const D_BULLET = 4;     // bullet damage
 
 function Bullet(originx, originy, offset) {
   this.offset = offset;
@@ -10,6 +11,7 @@ function Bullet(originx, originy, offset) {
   this.x = originx - Math.cos(this.offset + 0.5 * Math.PI) * SIZE * 2;
   this.y = originy - Math.sin(this.offset + 0.5 * Math.PI) * SIZE * 2;
   this.r = R_BULLET;
+  this.damage = D_BULLET;
   this.draw = function() {
     ctx.beginPath();
       ctx.lineWidth = 1;
@@ -34,8 +36,17 @@ function Bullet(originx, originy, offset) {
       let diffy = Math.pow(this.y - a[i].y, 2);
       let diffr = Math.pow(this.r + a[i].r, 2);
       if(diffx + diffy <= diffr) {
+        a[i].color = '#d36363';
+        a[i].health -= 4;
         collision = 1;
-        a.splice(i, 1);
+        setTimeout(function() {
+          if (a[i] !== undefined)
+            a[i].color = '#92bfce'
+        }, 50);
+        if (a[i].health <= 0) {
+          a.splice(i, 1);
+          SCORE += 10;
+        }
       }
     }
     return collision;
