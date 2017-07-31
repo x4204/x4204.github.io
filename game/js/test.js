@@ -1,5 +1,7 @@
 const FPS = 60;
-let SCORE = 0;
+let SCORE = 0;      // player score
+let HEALTH = 100;   // player health
+let ARMOR = 0;      // player armor
 let keys = { w: false, a: false, s: false, d: false, shoot: false };
 let canvas = document.querySelector(`#canvas`);
 let ctx = canvas.getContext(`2d`);
@@ -109,6 +111,8 @@ mainInterval = setInterval(function() {
   }
   tri.draw();
   drawScore();
+  drawHealth();
+  drawArmor();
 }, 1000/FPS);
 
 targetSpawn = setInterval(function() {
@@ -126,6 +130,24 @@ let drawScore = function() {
   ctx.lineWidth = 4;
   ctx.strokeText(`Score: ${SCORE}`, 10, 25);
   ctx.fillText(`Score: ${SCORE}`, 10, 25);
+}
+
+let drawHealth = function() {
+  ctx.font = '21px TheFont';
+  ctx.fillStyle = '#d8291c';
+  ctx.strokeStyle = '#888';
+  ctx.lineWidth = 2;
+  ctx.strokeText(`Health: ${HEALTH}`, WIDTH / 2 - 50, 25);
+  ctx.fillText(`Health: ${HEALTH}`, WIDTH / 2 - 50, 25);
+}
+
+let drawArmor = function() {
+  ctx.font = '21px TheFont';
+  ctx.fillStyle = '#2475c6';
+  ctx.strokeStyle = '#888';
+  ctx.lineWidth = 2;
+  ctx.strokeText(`Armor: ${ARMOR}`, WIDTH - 110, 25);
+  ctx.fillText(`Armor: ${ARMOR}`, WIDTH - 110, 25);
 }
 
 let drawGameOver = function() {
