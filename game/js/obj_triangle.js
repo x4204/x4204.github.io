@@ -113,41 +113,58 @@ function Triangle(originx, originy, angleoff) {
     }
   }
   this.collides = function(obj) {
-    let a = pointToSegment(obj, top, left) - obj.r;
-    let b = pointToSegment(obj, top, right) - obj.r;
-    let c = pointToSegment(obj, right, left) - obj.r;
-    if (a < 1 || b < 1 || c < 1) return true;
-    else return false;
-  }
-
-  let pointToSegment = function(p, l1, l2) {
-    let A = p.x - l1[0];
-    let B = p.y - l1[1];
-    let C = l2[0] - l1[0];
-    let D = l2[1] - l1[1];
-
-    let dot = A*C + B*D;
-    let len_sq = C*C + D*D;
-    let param = -1;
-    if (len_sq != 0) param = dot;
-
-    let xx, yy;
-
-    if (param < 0) {
-      xx = l1[0];
-      yy = l1[1];
+    let c1x = obj.x - left[0];
+    let c1y = obj.y - left[1];
+    let radiusSqr = obj.r * obj.r;
+    let c1sqr = c1x*c1x + c1y*c1y - radiusSqr;
+    if (c1sqr <= 0)
+      return true;
+    let c2x = obj.x - right[0];
+    let c2y = obj.y - right[1];
+    let c2sqr = c2x*c2x + c2y*c2y - radiusSqr;
+    if (c2sqr <= 0)
+      return true;
+    let c3x = obj.x - top[0];
+    let c3y = obj.y - top[1];
+    let c3sqr = c3x*c3x + c3y*c3y - radiusSqr;
+    if (c3sqr <= 0)
+      return true;
+    // test 2
+    let e1x = right[0] - left[0];
+    let e1y = right[1] - left[1];
+    let e2x = top[0] - right[0];
+    let e2y = top[1] - right[1];
+    let e3x = left[0] - top[0];
+    let e3y = left[1] - top[1];
+    if ((e1y*c1x - e1x*c1y) >= 0
+      && (e2y*c2x - e2x*c2y) >= 0
+      && (e3y*c3x - e3x*c3y) >= 0)
+      return true;
+    // test 3
+    let k = c1x*e1x + c1y*e1y;
+    if (k > 0) {
+      let len = e1x*e1x + e1y*e1y;
+      if (k < len) {
+        if (c1sqr * len <= k*k)
+          return true;
+      }
     }
-    else if (param > 1) {
-      xx = l2[0];
-      yy = l2[1];
+    k = c2x*e2x + c2y*e2y;
+    if (k > 0) {
+      let len = e2x*e2x + e2y*e2y;
+      if (k < len) {
+        if (c2sqr * len <= k*k)
+          return true;
+      }
     }
-    else {
-      xx = l1[0] + param * C;
-      yy = l1[1] + param * D;
+    k = c3x*e3x + c3y*e3y;
+    if (k > 0) {
+      let len = e3x*e3x + e3y*e3y;
+      if (k < len) {
+        if (c3sqr * len <= k*k)
+          return true;
+      }
     }
-
-    let dx = p.x - xx;
-    let dy = p.y - yy;
-    return Math.sqrt(dx*dx + dy*dy);
+    return false;
   }
 }
