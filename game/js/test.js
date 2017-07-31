@@ -101,7 +101,7 @@ mainInterval = setInterval(function() {
         }
         if (HEALTH <= 0){
           clearInterval(mainInterval);
-          drawGameOver();
+          setTimeout(drawGameOver, 200);
         }
     }
     if (targets[i].r < 1) {
@@ -162,18 +162,30 @@ let drawArmor = function() {
 }
 
 let drawGameOver = function() {
-  ctx.font = '41px TheFont';
-  ctx.fillStyle = '#ffcc00';
-  ctx.strokeStyle = '#888';
-  ctx.lineWidth = 6;
-  ctx.strokeText(`You Lost`, WIDTH / 2 - 83, HEIGHT / 2 - 20);
-  ctx.fillText(`You Lost`, WIDTH / 2 - 83, HEIGHT / 2 - 20);
-  ctx.strokeText(`Final Score: ${SCORE}`,
-              WIDTH / 2 - 130 - (SCORE.toString().length - 1) * 10,
-              HEIGHT / 2 + 30);
-  ctx.fillText(`Final Score: ${SCORE}`,
-              WIDTH / 2 - 130 - (SCORE.toString().length - 1) * 10,
-              HEIGHT / 2 + 30);
+  let i = 0;
+  let smooth = setInterval(function(){
+    ctx.lineWidth = 0;
+    ctx.fillStyle = 'rgba(136, 136, 136, 0.02)';
+    ctx.rect(0, 0, WIDTH, HEIGHT);
+    ctx.fill();
+    i++;
+    if (i > 120)
+      clearInterval(smooth);
+  }, 5);
+  setTimeout(function() {
+    ctx.font = '41px TheFont';
+    ctx.fillStyle = '#ffcc00';
+    ctx.strokeStyle = '#888';
+    ctx.lineWidth = 4;
+    ctx.strokeText(`Game Over`, WIDTH / 2 - 110, HEIGHT / 2 - 20);
+    ctx.fillText(`Game Over`, WIDTH / 2 - 110, HEIGHT / 2 - 20);
+    ctx.strokeText(`Final Score: ${SCORE}`,
+                WIDTH / 2 - 130 - (SCORE.toString().length - 1) * 10,
+                HEIGHT / 2 + 30);
+    ctx.fillText(`Final Score: ${SCORE}`,
+                WIDTH / 2 - 130 - (SCORE.toString().length - 1) * 10,
+                HEIGHT / 2 + 30);
+  }, 620);
 }
 
 //------------------------------------------------------------------------------
