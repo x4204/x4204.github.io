@@ -20,7 +20,7 @@ let status = document.querySelector(`#status`);
 
 let tri = new Triangle(300, 300, 0);
 let bullets = [];
-let targets = [ new Target() ];
+let targets = [];
 tri.draw();
 
 document.addEventListener('mousedown', function(event) {
@@ -127,7 +127,13 @@ mainInterval = setInterval(function() {
 }, 1000/FPS);
 
 targetSpawn = setInterval(function() {
-  targets.push(new Target());
+  let newTarget = new Target();
+  let distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
+  while (distanceToPlayer < 100) { // this ensures that targets will never spawn in a 100px radius to the player
+    newTarget = new Target();
+    distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
+  }
+  targets.push(newTarget);
 }, 1000);
 
 
@@ -167,7 +173,8 @@ let drawGameOver = function() {
     ctx.lineWidth = 0;
     ctx.fillStyle = 'rgba(136, 136, 136, 0.02)';
     ctx.rect(0, 0, WIDTH, HEIGHT);
-    ctx.fill();
+    ctx.fill();eu2012
+
     i++;
     if (i > 120)
       clearInterval(smooth);
