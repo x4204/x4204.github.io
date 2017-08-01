@@ -1,6 +1,7 @@
 const T_MIN_RAD = 12;   // target min radius
 const T_MAX_RAD = 22;   // target max radius
 const T_HEALTH = 12;    // target health
+const T_DIR_MULT = 0.5; // target direction multiplier (bigger -> faster targets)
 
 function Target() {
   this.x = Math.random() * WIDTH;
@@ -20,12 +21,13 @@ function Target() {
   }
   this.moveTowardsPlayer = function(player) {
     let dir = [
-      this.x - player.x,
-      this.y - player.y
+      player.x - this.x,
+      player.y - this.y
     ];
-    if (dir[0] > 0) this.x -= 0.5;
-    else this.x += 0.5;
-    if (dir[1] > 0) this.y -= 0.5;
-    else this.y += 0.5;
+    let magnitude = Math.sqrt(Math.pow(this.x - player.x, 2) + Math.pow(this.y - player.y, 2));
+    dir[0] /= magnitude / T_DIR_MULT;
+    dir[1] /= magnitude / T_DIR_MULT;
+    this.x += dir[0];
+    this.y += dir[1];
   }
 }

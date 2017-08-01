@@ -104,6 +104,8 @@ mainInterval = setInterval(function() {
         }
         if (HEALTH / 100 <= 0){
           clearInterval(mainInterval);
+          clearInterval(mainTimer);
+          clearInterval(targetSpawn);
           setTimeout(drawGameOver('Game'), 200);
         }
     }
