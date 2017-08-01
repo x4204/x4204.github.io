@@ -1,4 +1,5 @@
 const FPS = 60;
+let TIME_LEFT = 60;
 let SCORE = 0;          // player score
 let HEALTH = 10000;     // player health
 let ARMOR = 10000;      // player armor
@@ -9,6 +10,7 @@ const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
 let currObj;
 let mainInterval;           // game loop
+let mainTimer;              // 60 seconds game timer
 let targetSpawn;            // target spawn interval
 let shootTimer = 20;        // interval for shooting
 
@@ -121,6 +123,7 @@ mainInterval = setInterval(function() {
     else bullets[i].draw();
   }
   tri.draw();
+  drawTimeLeft();
   drawScore();
   drawHealth();
   drawArmor();
@@ -136,6 +139,15 @@ targetSpawn = setInterval(function() {
   targets.push(newTarget);
 }, 1000);
 
+mainTimer = setInterval(function() {
+  if (TIME_LEFT == 0) {               // time rush gamemode
+    clearInterval(mainInterval);
+    clearInterval(targetSpawn);
+    clearInterval(mainTimer);
+    drawGameOver();
+  }
+  else TIME_LEFT--;
+}, 1000);
 
 
 
@@ -167,13 +179,26 @@ let drawArmor = function() {
   ctx.fillText(`Armor: ${Math.floor(ARMOR / 100)}`, WIDTH - 120, 25);
 }
 
+let drawTimeLeft = function() {
+  ctx.font = '21px TheFont';
+  ctx.fillStyle = '#baf29f';
+  ctx.strokeStyle = '#888';
+  ctx.lineWidth = 2;
+  ctx.strokeText(`You have ${TIME_LEFT} seconds to get a highscore`,
+                  WIDTH / 2 - 195,
+                  HEIGHT - 15);
+  ctx.fillText(`You have ${TIME_LEFT} seconds to get a highscore`,
+                  WIDTH / 2 - 195,
+                  HEIGHT - 15);
+}
+
 let drawGameOver = function() {
   let i = 0;
   let smooth = setInterval(function(){
     ctx.lineWidth = 0;
     ctx.fillStyle = 'rgba(136, 136, 136, 0.02)';
     ctx.rect(0, 0, WIDTH, HEIGHT);
-    ctx.fill();eu2012
+    ctx.fill();
 
     i++;
     if (i > 120)
@@ -215,5 +240,6 @@ stopBtn.addEventListener('click', function() {
   clearInterval(intvl);
   clearInterval(mainInterval);
   clearInterval(targetSpawn);
+  clearInterval(mainTimer);
 });
 // <-- for testing purposes
