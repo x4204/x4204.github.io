@@ -18,4 +18,14 @@ function Target() {
     ctx.fill();
     this.r -= 0.03;
   }
+  this.moveTowardsPlayer = function(player) {
+    let dir = [
+      this.x - player.x,
+      this.y - player.y
+    ];
+    if (dir[0] > 0) this.x -= 0.5;
+    else this.x += 0.5;
+    if (dir[1] > 0) this.y -= 0.5;
+    else this.y += 0.5;
+  }
 }

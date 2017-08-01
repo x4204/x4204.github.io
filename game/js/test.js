@@ -94,6 +94,7 @@ mainInterval = setInterval(function() {
   }
   tri.keepOnTheMap();
   for (let i = 0; i < targets.length; i++) { // check for triangle-circle collision
+    targets[i].moveTowardsPlayer(tri);
     if (tri.collides(targets[i])) {
         if (ARMOR > 0) {
           ARMOR -= 180;
@@ -101,7 +102,7 @@ mainInterval = setInterval(function() {
         } else {
           HEALTH -= 180;
         }
-        if (HEALTH <= 0){
+        if (HEALTH / 100 <= 0){
           clearInterval(mainInterval);
           setTimeout(drawGameOver('Game'), 200);
         }
