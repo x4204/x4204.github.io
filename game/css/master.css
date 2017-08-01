@@ -17,6 +17,61 @@ body{
   background-image: url('../img/grid.png');
   background-size: cover;
   background-repeat: no-repeat;
+  text-align: center;
+}
+
+#blur{
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 602px;
+  height: 602px;
+  top: 0px;
+  left: 0px;
+}
+
+#gameOver{
+  background-color: rgba(96, 100, 127, 0.9);
+  position: absolute;
+  top: 0;
+  width: inherit;
+  height: auto;
+  transform: translate(0%, 45%);
+}
+
+#gameOver p{
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #555;
+  font-family: TheFont;
+  color: #ffcc00;
+  font-size: 42px;
+}
+
+#startBtn{
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #555;
+  background-color: rgba(0, 0, 0, 0);
+  visibility: visible;
+  border: 6px solid #444;
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #ffcc00;
+  font-size: 41px;
+  font-family: TheFont;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+#startBtn:focus{
+  outline: 0;
+}
+
+#endInfo{
+
+}
+
+#score{
+  margin-bottom: -10px;
+  margin-top: -40px;
 }
 
 #canvas{

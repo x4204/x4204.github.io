@@ -1,8 +1,9 @@
-let SIZE = 12;
-let MAX_SPEED = 2;
-let ACC_RATE = 0.05;
-let DEC_RATE = 0.03;
-const R_SPEED = 0.04;  // rotation speed
+let SIZE = 12;          // triangle size
+let MAX_SPEED = 2;      // maximum player speed
+let ACC_RATE = 0.05;    // acceleration rate
+let DEC_RATE = 0.03;    // deceleration rate
+const R_SPEED = 0.04;   // rotation speed
+// -----------------------------------------------------------------------------
 
 function Triangle(originx, originy, angleoff) {
   this.x = originx;
@@ -10,10 +11,9 @@ function Triangle(originx, originy, angleoff) {
   this.velocity = [0, 0];
   this.accel = [0, 0];
   this.offset = angleoff * (Math.PI / 180);
-  // this.color = [ 0, 200, 0 ];
-  let left;
-  let right;
-  let top;
+  let left = [];
+  let right = [];
+  let top = [];
   this.draw = function() {
     left = [    // the left point of the triangle
       this.x - Math.cos(this.offset + Math.PI) * SIZE,

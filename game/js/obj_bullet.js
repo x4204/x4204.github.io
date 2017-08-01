@@ -1,6 +1,7 @@
 const R_BULLET = 4;     // bullet radius
 const S_BULLET = 4;     // bullet speed
 const D_BULLET = 4;     // bullet damage
+// -----------------------------------------------------------------------------
 
 function Bullet(originx, originy, offset) {
   this.offset = offset;
