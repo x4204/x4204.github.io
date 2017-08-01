@@ -9,7 +9,7 @@ let ctx = canvas.getContext(`2d`);
 let keys = { w: false, a: false, s: false, d: false, shoot: false };
 const HEIGHT = canvas.height;     // height of the canvas
 const WIDTH = canvas.width;       // width of the canvas
-let TIME_LEFT = 60;               // time left for the player
+let TIME_LEFT;                    // time left for the player
 const FPS = 60;                   // game fps
 let HEALTH;                       // player health
 let SCORE;                        // player score
@@ -86,6 +86,7 @@ startBtn.addEventListener('click', function() {
   HEALTH = 10000;
   ARMOR = 10000;
   SCORE = 0;
+  TIME_LEFT = 60
   bullets = [];
   targets = [];
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
