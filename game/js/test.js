@@ -21,9 +21,9 @@ let mainTimer;                    // 60 seconds game timer
 let targetSpawn;                  // target spawn interval
 let shootTimer = 20;              // interval for shooting
 // game objects ----------------------------------------------------------------
-let tri;
-let bullets = [];
-let targets = [];
+let tri;                          // the player
+let bullets = [];                 // bullets shot
+let targets = [];                 // targets on the map
 // -----------------------------------------------------------------------------
 document.addEventListener('mousedown', function(event) {
   currObj = event.target;
@@ -75,23 +75,7 @@ document.addEventListener('keyup', function(event) {
 });
 
 startBtn.addEventListener('click', function() {
-  // preinitializer -->
-  startBtn.style.visibility = 'hidden';
-  gover.style.visibility = 'hidden';
-  blurDiv.style.visibility = 'hidden';
-  endInfo.style.visibility = 'hidden';
-  score.style.visibility = 'hidden';
-  currObj = canvas;
-  isStart = true;
-  HEALTH = 10000;
-  ARMOR = 10000;
-  SCORE = 0;
-  TIME_LEFT = 60
-  bullets = [];
-  targets = [];
-  ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  tri = new Triangle(300, 300, 0);
-  // <-- preinitializer
+  gameINIT();
 
   mainInterval = setInterval(function() {
     ctx.clearRect(0, 0, 600, 600);
@@ -169,6 +153,24 @@ startBtn.addEventListener('click', function() {
       else TIME_LEFT--;
     }, 1000);
 });
+
+let gameINIT = function() {
+  startBtn.style.visibility = 'hidden';
+  gover.style.visibility = 'hidden';
+  blurDiv.style.visibility = 'hidden';
+  endInfo.style.visibility = 'hidden';
+  score.style.visibility = 'hidden';
+  currObj = canvas;
+  isStart = true;
+  HEALTH = 10000;
+  ARMOR = 10000;
+  SCORE = 0;
+  TIME_LEFT = 60
+  bullets = [];
+  targets = [];
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+  tri = new Triangle(300, 300, 0);
+}
 
 let drawScore = function() {
   ctx.font = '21px TheFont';
