@@ -1,8 +1,9 @@
 let SIZE = 12;          // triangle size
-let MAX_SPEED = 2;      // maximum player speed
-let ACC_RATE = 0.05;    // acceleration rate
-let DEC_RATE = 0.03;    // deceleration rate
-const R_SPEED = 0.04;   // rotation speed
+let MAX_SPEED = 2;      // maximum player speed (default 2)
+let ACC_RATE = 0.05;    // acceleration rate (default 0.05)
+let DEC_RATE = 0.03;    // deceleration rate (default 0.03)
+const R_SPEED = 0.04;   // rotation speed (default 0.04)
+const MASS = 1;         // triangle mass (default 1)
 // -----------------------------------------------------------------------------
 
 function Triangle(originx, originy, angleoff) {
@@ -39,8 +40,9 @@ function Triangle(originx, originy, angleoff) {
     ctx.stroke();
   }
   this.moveForwards = function () {
-    this.accel[0] = Math.cos(this.offset + 0.5 * Math.PI) * ACC_RATE;
-    this.accel[1] = Math.sin(this.offset + 0.5 * Math.PI) * ACC_RATE;
+    this.accel[0] = (Math.cos(this.offset + 0.5 * Math.PI) * ACC_RATE) / MASS;
+    this.accel[1] = (Math.sin(this.offset + 0.5 * Math.PI) * ACC_RATE) / MASS;
+    // console.log(`${this.accel[0].toFixed(2)} and ${this.accel[1].toFixed(2)}`);
     if (this.velocity[0] > MAX_SPEED)
       this.velocity[0] = MAX_SPEED - 0.01;
     else if (this.velocity[0] < -MAX_SPEED)
@@ -81,8 +83,8 @@ function Triangle(originx, originy, angleoff) {
     this.offset += R_SPEED;
   }
   this.decelerate = function() {
-    this.velocity[0] -= this.velocity[0] * DEC_RATE;
-    this.velocity[1] -= this.velocity[1] * DEC_RATE;
+    this.velocity[0] -= this.velocity[0] * DEC_RATE * MASS;
+    this.velocity[1] -= this.velocity[1] * DEC_RATE * MASS;
     this.x -= this.velocity[0];
     this.y -= this.velocity[1];
     // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
