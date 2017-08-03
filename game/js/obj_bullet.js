@@ -26,8 +26,8 @@ function Bullet(originx, originy, offset) {
     this.y -= this.velocity[1];
   }
   this.isOutOfBoundries = function() {
-    if (this.x < -10 || this.x > WIDTH + 10
-      || this.y < -10 || this.y > HEIGHT + 10) return true;
+    if (this.x < -10 || this.x > Game.canvas.width + 10
+      || this.y < -10 || this.y > Game.canvas.height + 10) return true;
     else return false;
   }
   this.collides = function(a) {
@@ -46,7 +46,7 @@ function Bullet(originx, originy, offset) {
         }, 50);
         if (a[i].health <= 0) {
           let chance = Math.random();
-          if (chance <= DROP_CHANCE)
+          if (chance <= Game['drop chance'].current)
             upgrades.push(a[i].dropUpgrade());
           a.splice(i, 1);
           SCORE += 10;

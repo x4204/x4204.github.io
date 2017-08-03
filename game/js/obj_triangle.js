@@ -96,16 +96,16 @@ function Triangle(originx, originy, angleoff) {
       this.x = 10;
       this.velocity[0] *= -0.5;
     }
-    if (this.x > WIDTH - 10) {
-      this.x = WIDTH - 10;
+    if (this.x > Game.canvas.width - 10) {
+      this.x = Game.canvas.width - 10;
       this.velocity[0] *= -0.5;
     }
     if (this.y < 10) {
       this.y = 10;
       this.velocity[1] *= -0.5;
     }
-    if (this.y > HEIGHT - 10) {
-      this.y = HEIGHT - 10;
+    if (this.y > Game.canvas.height - 10) {
+      this.y = Game.canvas.height - 10;
       this.velocity[1] *= -0.5;
     }
   }

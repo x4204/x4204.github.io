@@ -5,8 +5,8 @@ const T_DIR_MULT = 0.5; // target direction multiplier (bigger -> faster targets
 // -----------------------------------------------------------------------------
 
 function Target() {
-  this.x = Math.random() * WIDTH;
-  this.y = Math.random() * HEIGHT;
+  this.x = Math.random() * Game.canvas.width;
+  this.y = Math.random() * Game.canvas.height;
   this.r = Math.random() * (T_MAX_RAD - T_MIN_RAD) + T_MIN_RAD;
   this.color = '#92bfce';
   this.health = T_HEALTH;
@@ -18,7 +18,7 @@ function Target() {
       ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fill();
-    this.r -= 0.03;
+    // this.r -= 0.03;
   }
   this.moveTowardsPlayer = function(player) {
     let dir = [

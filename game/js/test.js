@@ -5,18 +5,11 @@ let score = document.querySelector(`#score`);
 let canvas = document.querySelector(`#canvas`);
 let startBtn = document.querySelector(`#startBtn`);
 let ctx = canvas.getContext(`2d`);
+// upgrade shop ----------------------------------------------------------------
+let upgradeShopPoints = document.querySelector(`#c_upgrPts`);
+
 // general data ----------------------------------------------------------------
-let keys = { w: false, a: false, s: false, d: false, shoot: false };
-const HEIGHT = canvas.height;     // height of the canvas
-const WIDTH = canvas.width;       // width of the canvas
-let TIME_LEFT;                    // time left for the player
-const FPS = 60;                   // game fps
-let HEALTH;                       // player health
 let SCORE;                        // player score
-let ARMOR;                        // player armor
-let DROP_CHANCE = 0.05;           // (default 0.05) chance of an upgrade being dropped from target (in percentiles)
-let UPGRADE_COUNT = 0;            // count of upgrades gathered by player
-let T_SP_INTERVAL = 1000;         // target spawn interval time
 let currObj;                      // last clicked DOM element
 // game loops ------------------------------------------------------------------
 let mainInterval;                 // game loop
@@ -37,19 +30,19 @@ document.addEventListener('keydown', function(event) {
   if (currObj == canvas) {
     switch (event.which) {
       case 65:
-        keys.a = true;
+        Game.keys.a = true;
         break;
       case 68:
-        keys.d = true;
+        Game.keys.d = true;
         break;
       case 87:
-        keys.w = true;
+        Game.keys.w = true;
         break;
       case 83:
-        keys.s = true;
+        Game.keys.s = true;
         break;
       case 38:
-        keys.shoot = true;
+        Game.keys.shoot = true;
         break;
     }
   }
@@ -59,19 +52,19 @@ document.addEventListener('keyup', function(event) {
   if (currObj == canvas) {
     switch (event.which) {
       case 65:
-        keys.a = false;
+        Game.keys.a = false;
         break;
       case 68:
-        keys.d = false;
+        Game.keys.d = false;
         break;
       case 87:
-        keys.w = false;
+        Game.keys.w = false;
         break;
       case 83:
-        keys.s = false;
+        Game.keys.s = false;
         break;
       case 38:
-        keys.shoot = false;
+        Game.keys.shoot = false;
         shootTimer = 20;
         break;
     }
@@ -82,15 +75,15 @@ startBtn.addEventListener('click', function() {
   gameINIT();
 
   mainInterval = setInterval(function() {
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    if (keys.w == true) tri.moveForwards();
-    else if (keys.s == true) tri.moveBackwards();
+    ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
+    if (Game.keys.w == true) tri.moveForwards();
+    else if (Game.keys.s == true) tri.moveBackwards();
     else if (Math.abs(tri.velocity[0]) > DEC_RATE
           || Math.abs(tri.velocity[1]) > DEC_RATE)
       tri.decelerate();
-    if (keys.a == true) tri.rotateLeft();
-    if (keys.d == true) tri.rotateRight();
-    if (keys.shoot == true) {
+    if (Game.keys.a == true) tri.rotateLeft();
+    if (Game.keys.d == true) tri.rotateRight();
+    if (Game.keys.shoot == true) {
       if (shootTimer % 20 == 0)
         bullets.push(new Bullet(tri.x, tri.y, tri.offset));
       shootTimer++;
@@ -99,13 +92,13 @@ startBtn.addEventListener('click', function() {
     for (let i = 0; i < targets.length; i++) { // check for triangle-circle (player-target) collision
       targets[i].moveTowardsPlayer(tri);
       if (tri.collides(targets[i])) {
-          if (ARMOR > 0) {
-            ARMOR -= 180;
-            HEALTH -= 20;
+          if (Game.armor.current > 0) {
+            Game.armor.current -= 180;
+            Game.health.current -= 20;
           } else {
-            HEALTH -= 180;
+            Game.health.current -= 180;
           }
-          if (HEALTH / 100 <= 0){
+          if (Game.health.current / 100 <= 0){
             setTimeout(drawGameOver('Game'), 200);
             clearInterval(mainInterval);
             clearInterval(targetSpawn);
@@ -121,7 +114,7 @@ startBtn.addEventListener('click', function() {
     }
     for (let i = 0; i < upgrades.length; i++) { // check for triangle-circle (player-upgrade) collision
       if (tri.collides(upgrades[i])) {
-        UPGRADE_COUNT++;
+        Game.upgrades.current++;
         upgrades.splice(i, 1);
       } else {
         upgrades[i].draw();
@@ -144,7 +137,7 @@ startBtn.addEventListener('click', function() {
     drawUpgradesCount();
     drawHealth();
     drawArmor();
-  }, 1000/FPS);
+  }, 1000/Game.FPS);
 
   targetSpawn = setInterval(function() {
     let newTarget = new Target();
@@ -154,37 +147,37 @@ startBtn.addEventListener('click', function() {
       distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
     }
     targets.push(newTarget);
-  }, T_SP_INTERVAL);
+  }, Game['target spawn interval'].current);
 
   mainTimer = setInterval(function() {
-      if (TIME_LEFT == 0) {               // time rush gamemode
+      if (Game.time.current == 0) {               // time rush gamemode
         clearInterval(mainInterval);
         clearInterval(targetSpawn);
         clearInterval(mainTimer);
         drawGameOver(' Time');
         isStart = false;
       }
-      else TIME_LEFT--;
+      else Game.time.current--;
     }, 1000);
 });
 
 let gameINIT = function() {
+  SCORE = 0;
+  isStart = true;
+  currObj = canvas;
+  bullets = [];
+  targets = [];
+  upgrades = [];
   startBtn.style.visibility = 'hidden';
   gover.style.visibility = 'hidden';
   blurDiv.style.visibility = 'hidden';
   endInfo.style.visibility = 'hidden';
   score.style.visibility = 'hidden';
-  currObj = canvas;
-  isStart = true;
-  HEALTH = 10000;
-  ARMOR = 10000;
-  SCORE = 0;
-  TIME_LEFT = 60;
-  UPGRADE_COUNT = 0;
-  bullets = [];
-  targets = [];
-  ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  tri = new Triangle(WIDTH / 2, HEIGHT / 2, 0);
+  Game.health.current = Game.health.default;
+  Game.armor.current = Game.armor.default;
+  Game.time.current = Game.time.default;
+  ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
+  tri = new Triangle(Game.canvas.width / 2, Game.canvas.height / 2, 0);
 }
 
 let drawScore = function() {
@@ -197,12 +190,13 @@ let drawScore = function() {
 }
 
 let drawUpgradesCount = function() {
+  upgradeShopPoints.innerHTML = Game.upgrades.current;
   ctx.font = '21px TheFont';
   ctx.fillStyle = '#4fc197';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 4;
-  ctx.strokeText(`Upgrades: ${UPGRADE_COUNT}`, 10, 55);
-  ctx.fillText(`Upgrades: ${UPGRADE_COUNT}`, 10, 55);
+  ctx.strokeText(`Upgrades: ${Game.upgrades.current}`, 10, 55);
+  ctx.fillText(`Upgrades: ${Game.upgrades.current}`, 10, 55);
 }
 
 let drawHealth = function() {
@@ -210,8 +204,8 @@ let drawHealth = function() {
   ctx.fillStyle = '#d8291c';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 2;
-  ctx.strokeText(`Health: ${Math.floor(HEALTH / 100)}`, WIDTH / 2 - 50, 25);
-  ctx.fillText(`Health: ${Math.floor(HEALTH / 100)}`, WIDTH / 2 - 50, 25);
+  ctx.strokeText(`Health: ${Math.floor(Game.health.current / 100)}`, Game.canvas.width / 2 - 50, 25);
+  ctx.fillText(`Health: ${Math.floor(Game.health.current / 100)}`, Game.canvas.width / 2 - 50, 25);
 }
 
 let drawArmor = function() {
@@ -219,8 +213,8 @@ let drawArmor = function() {
   ctx.fillStyle = '#2475c6';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 2;
-  ctx.strokeText(`Armor: ${Math.floor(ARMOR / 100)}`, WIDTH - 120, 25);
-  ctx.fillText(`Armor: ${Math.floor(ARMOR / 100)}`, WIDTH - 120, 25);
+  ctx.strokeText(`Armor: ${Math.floor(Game.armor.current / 100)}`, Game.canvas.width - 120, 25);
+  ctx.fillText(`Armor: ${Math.floor(Game.armor.current / 100)}`, Game.canvas.width - 120, 25);
 }
 
 let drawTimeLeft = function() {
@@ -228,12 +222,12 @@ let drawTimeLeft = function() {
   ctx.fillStyle = '#ffcc00';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 4;
-  ctx.strokeText(`You have ${TIME_LEFT} seconds to get a highscore`,
-                  WIDTH / 2 - 195,
-                  HEIGHT - 15);
-  ctx.fillText(`You have ${TIME_LEFT} seconds to get a highscore`,
-                  WIDTH / 2 - 195,
-                  HEIGHT - 15);
+  ctx.strokeText(`You have ${Game.time.current} seconds to get a highscore`,
+                  Game.canvas.width / 2 - 195,
+                  Game.canvas.height - 15);
+  ctx.fillText(`You have ${Game.time.current} seconds to get a highscore`,
+                  Game.canvas.width / 2 - 195,
+                  Game.canvas.height - 15);
 }
 
 let drawGameOver = function(text) {
