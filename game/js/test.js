@@ -16,6 +16,7 @@ let SCORE;                        // player score
 let ARMOR;                        // player armor
 let DROP_CHANCE = 0.05;           // (default 0.05) chance of an upgrade being dropped from target (in percentiles)
 let UPGRADE_COUNT = 0;            // count of upgrades gathered by player
+let T_SP_INTERVAL = 1000;         // target spawn interval time
 let currObj;                      // last clicked DOM element
 // game loops ------------------------------------------------------------------
 let mainInterval;                 // game loop
@@ -153,7 +154,7 @@ startBtn.addEventListener('click', function() {
       distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
     }
     targets.push(newTarget);
-  }, 1000);
+  }, T_SP_INTERVAL);
 
   mainTimer = setInterval(function() {
       if (TIME_LEFT == 0) {               // time rush gamemode

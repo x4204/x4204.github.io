@@ -20,6 +20,61 @@ body{
   text-align: center;
 }
 
+.upgradeShop{
+  font-family: TheFont;
+  position: absolute;
+  top: 0;
+  left: 600px;
+  width: 640px;
+  height: auto;
+  background-color: #ccc;
+  text-align: center;
+}
+
+.upgradeShop div{
+  text-align: left;
+  padding: 12px;
+  margin: 5px 5px;
+  width: 270px;
+  height: auto;
+  display: inline-block;
+  background-color: #aaa;
+}
+
+.upgradeShop div h3{
+  float: left;
+}
+
+.upgradeShop div p{
+  padding: 7px 0;
+  margin: 0;
+  clear: both;
+  float: left;
+}
+
+.upgradeShop div img{
+  width: 50px;
+  float: right;
+}
+
+.ushB{
+  font-family: TheFont;
+  color: white;
+  display: inline;
+  float: right;
+  border: 0;
+  padding: 10px 10px;
+  margin: 0 5px;
+}
+
+.B1{
+  background-color: #347235;
+}
+
+.B2{
+  background-color: #C11B17;
+}
+
 #blur{
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -65,15 +120,7 @@ body{
   outline: 0;
 }
 
-#endInfo{
-
-}
-
 #score{
   margin-bottom: -10px;
   margin-top: -40px;
-}
-
-#canvas{
-
 }
