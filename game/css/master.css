@@ -14,18 +14,28 @@ body{
   background-color: #eee;
   width: 600px;
   height: 600px;
-  background-image: url('../img/grid.png');
+  text-align: center;
+}
+
+#canvas{
+    position: absolute;
+    left: 0;
+}
+
+.bgimage{
+  opacity: 0.3;
+  width: 600px;
+  height: 600px;
+  position: absolute;
+  top: 0;
   background-size: cover;
   background-repeat: no-repeat;
-  text-align: center;
+  background-image: url('../img/grid1.png');
 }
 
 .upgradeShop{
   font-family: TheFont;
-  position: absolute;
-  top: 0;
-  left: 600px;
-  width: 640px;
+  position: relative;
   height: auto;
   background-color: #ccc;
   text-align: center;
@@ -35,7 +45,7 @@ body{
   text-align: left;
   padding: 12px;
   margin: 5px 5px;
-  width: 270px;
+  width: 260px;
   height: auto;
   display: inline-block;
   background-color: #aaa;
