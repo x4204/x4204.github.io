@@ -41,9 +41,9 @@ document.addEventListener('keydown', function(event) {
       case 87:
         keys.w = true;
         break;
-      // case 83:        // there will be no backwards movement for now
-      //   keys.s = true;
-      //   break;
+      case 83:
+        keys.s = true;
+        break;
       case 38:
         keys.shoot = true;
         break;
@@ -63,9 +63,9 @@ document.addEventListener('keyup', function(event) {
       case 87:
         keys.w = false;
         break;
-      // case 83:
-      //   keys.s = false;
-      //   break;
+      case 83:
+        keys.s = false;
+        break;
       case 38:
         keys.shoot = false;
         shootTimer = 20;
@@ -78,14 +78,14 @@ startBtn.addEventListener('click', function() {
   gameINIT();
 
   mainInterval = setInterval(function() {
-    ctx.clearRect(0, 0, 600, 600);
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
     if (keys.w == true) tri.moveForwards();
+    else if (keys.s == true) tri.moveBackwards();
     else if (Math.abs(tri.velocity[0]) > DEC_RATE
           || Math.abs(tri.velocity[1]) > DEC_RATE)
       tri.decelerate();
     if (keys.a == true) tri.rotateLeft();
     if (keys.d == true) tri.rotateRight();
-    if (keys.s == true) tri.moveBackwards();
     if (keys.shoot == true) {
       if (shootTimer % 20 == 0)
         bullets.push(new Bullet(tri.x, tri.y, tri.offset));
@@ -169,7 +169,7 @@ let gameINIT = function() {
   bullets = [];
   targets = [];
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  tri = new Triangle(300, 300, 0);
+  tri = new Triangle(WIDTH / 2, HEIGHT / 2, 0);
 }
 
 let drawScore = function() {

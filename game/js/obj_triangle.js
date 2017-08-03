@@ -40,9 +40,8 @@ function Triangle(originx, originy, angleoff) {
     ctx.stroke();
   }
   this.moveForwards = function () {
-    this.accel[0] = (Math.cos(this.offset + 0.5 * Math.PI) * ACC_RATE) / MASS;
-    this.accel[1] = (Math.sin(this.offset + 0.5 * Math.PI) * ACC_RATE) / MASS;
-    // console.log(`${this.accel[0].toFixed(2)} and ${this.accel[1].toFixed(2)}`);
+    this.accel[0] = (Math.sin(this.offset + Math.PI) * ACC_RATE) / MASS;
+    this.accel[1] = (Math.cos(this.offset + Math.PI) * ACC_RATE) / MASS;
     if (this.velocity[0] > MAX_SPEED)
       this.velocity[0] = MAX_SPEED - 0.01;
     else if (this.velocity[0] < -MAX_SPEED)
@@ -52,30 +51,26 @@ function Triangle(originx, originy, angleoff) {
       this.velocity[1] = MAX_SPEED - 0.01;
     else if (this.velocity[1] < -MAX_SPEED)
       this.velocity[1] = -MAX_SPEED + 0.01;
+    else this.velocity[1] -= this.accel[1];
+    this.x -= this.velocity[0];
+    this.y -= this.velocity[1];
+  }
+  this.moveBackwards = function() {
+    this.accel[0] = (Math.sin(this.offset - Math.PI) * ACC_RATE) / MASS;
+    this.accel[1] = (Math.cos(this.offset - Math.PI) * ACC_RATE) / MASS;
+    if (this.velocity[0] > MAX_SPEED)
+      this.velocity[0] = MAX_SPEED - 0.01;
+    else if (this.velocity[0] < -MAX_SPEED)
+      this.velocity[0] = -MAX_SPEED + 0.01;
+    else this.velocity[0] -= this.accel[0];
+    if (this.velocity[1] > MAX_SPEED)
+      this.velocity[1] = MAX_SPEED - 0.01;
+    else if (this.velocity[1] < -MAX_SPEED)
+      this.velocity[1] = -MAX_SPEED + 0.01;
     else this.velocity[1] += this.accel[1];
     this.x -= this.velocity[0];
     this.y -= this.velocity[1];
-    // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
   }
-  // dont know why if i use ACC_RATE the velocity backwards is a little bigger
-  // than when moving forwards
-  // this.moveBackwards = function() {
-  //   this.accel[0] = Math.cos(this.offset - 0.5 * Math.PI) * DEC_RATE;
-  //   this.accel[1] = Math.sin(this.offset - 0.5 * Math.PI) * DEC_RATE;
-  //   if (this.velocity[0] > MAX_SPEED)
-  //     this.velocity[0] = MAX_SPEED - 0.01;
-  //   else if (this.velocity[0] < -MAX_SPEED)
-  //     this.velocity[0] = -MAX_SPEED + 0.01;
-  //   else this.velocity[0] += this.accel[0];
-  //   if (this.velocity[1] > MAX_SPEED)
-  //     this.velocity[1] = MAX_SPEED - 0.01;
-  //   else if (this.velocity[1] < -MAX_SPEED)
-  //     this.velocity[1] = -MAX_SPEED + 0.01;
-  //   else this.velocity[1] += this.accel[1];
-  //   this.x -= this.velocity[0];
-  //   this.y -= this.velocity[1];
-  //   // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
-  // }
   this.rotateLeft = function() {
     this.offset -= R_SPEED;
   }
@@ -83,8 +78,8 @@ function Triangle(originx, originy, angleoff) {
     this.offset += R_SPEED;
   }
   this.decelerate = function() {
-    this.velocity[0] -= this.velocity[0] * DEC_RATE * MASS;
-    this.velocity[1] -= this.velocity[1] * DEC_RATE * MASS;
+    this.velocity[0] -= this.velocity[0] * DEC_RATE / MASS;
+    this.velocity[1] -= this.velocity[1] * DEC_RATE / MASS;
     this.x -= this.velocity[0];
     this.y -= this.velocity[1];
     // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);
