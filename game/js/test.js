@@ -5,9 +5,6 @@ let score = document.querySelector(`#score`);
 let canvas = document.querySelector(`#canvas`);
 let startBtn = document.querySelector(`#startBtn`);
 let ctx = canvas.getContext(`2d`);
-// upgrade shop ----------------------------------------------------------------
-let upgradeShopPoints = document.querySelector(`#c_upgrPts`);
-
 // general data ----------------------------------------------------------------
 let SCORE;                        // player score
 let currObj;                      // last clicked DOM element
@@ -176,6 +173,9 @@ let gameINIT = function() {
   Game.health.current = Game.health.default;
   Game.armor.current = Game.armor.default;
   Game.time.current = Game.time.default;
+  Game['bullet speed'].current = Game['bullet speed'].default;
+  Game['bullet damage'].current = Game['bullet damage'].default;
+  Game['max speed'].current = Game['max speed'].default;
   ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
   tri = new Triangle(Game.canvas.width / 2, Game.canvas.height / 2, 0);
 }

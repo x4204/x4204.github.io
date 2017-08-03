@@ -1,18 +1,16 @@
 const R_BULLET = 4;     // bullet radius
-const S_BULLET = 4;     // bullet speed
-const D_BULLET = 4;     // bullet damage
 // -----------------------------------------------------------------------------
 
 function Bullet(originx, originy, offset) {
   this.offset = offset;
   this.velocity = [
-    Math.cos(this.offset + 0.5 * Math.PI) * S_BULLET,
-    Math.sin(this.offset + 0.5 * Math.PI) * S_BULLET
+    Math.cos(this.offset + 0.5 * Math.PI) * Game['bullet speed'].current,
+    Math.sin(this.offset + 0.5 * Math.PI) * Game['bullet speed'].current
   ];
   this.x = originx - Math.cos(this.offset + 0.5 * Math.PI) * SIZE * 2;
   this.y = originy - Math.sin(this.offset + 0.5 * Math.PI) * SIZE * 2;
   this.r = R_BULLET;
-  this.damage = D_BULLET;
+  this.damage = Game['bullet damage'].current;
   this.draw = function() {
     ctx.beginPath();
       ctx.lineWidth = 1;
@@ -38,7 +36,7 @@ function Bullet(originx, originy, offset) {
       let diffr = Math.pow(this.r + a[i].r, 2);
       if(diffx + diffy <= diffr) {
         a[i].color = '#d36363';
-        a[i].health -= 4;
+        a[i].health -= Game['bullet damage'].current;
         collision = 1;
         setTimeout(function() {
           if (a[i] !== undefined)
