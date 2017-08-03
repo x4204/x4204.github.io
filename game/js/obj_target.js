@@ -31,4 +31,7 @@ function Target() {
     this.x += dir[0];
     this.y += dir[1];
   }
+  this.dropUpgrade = function() {
+    return new Upgrade(this.x, this.y);
+  }
 }

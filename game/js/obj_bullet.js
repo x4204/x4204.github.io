@@ -45,6 +45,9 @@ function Bullet(originx, originy, offset) {
             a[i].color = '#92bfce'
         }, 50);
         if (a[i].health <= 0) {
+          let chance = Math.random();
+          if (chance <= DROP_CHANCE)
+            upgrades.push(a[i].dropUpgrade());
           a.splice(i, 1);
           SCORE += 10;
         }

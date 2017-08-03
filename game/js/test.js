@@ -14,6 +14,8 @@ const FPS = 60;                   // game fps
 let HEALTH;                       // player health
 let SCORE;                        // player score
 let ARMOR;                        // player armor
+let DROP_CHANCE = 0.05;           // (default 0.05) chance of an upgrade being dropped from target (in percentiles)
+let UPGRADE_COUNT = 0;            // count of upgrades gathered by player
 let currObj;                      // last clicked DOM element
 // game loops ------------------------------------------------------------------
 let mainInterval;                 // game loop
@@ -24,6 +26,7 @@ let shootTimer = 20;              // interval for shooting
 let tri;                          // the player
 let bullets = [];                 // bullets shot
 let targets = [];                 // targets on the map
+let upgrades = [];                // upgrades on the map
 // -----------------------------------------------------------------------------
 document.addEventListener('mousedown', function(event) {
   currObj = event.target;
@@ -92,7 +95,7 @@ startBtn.addEventListener('click', function() {
       shootTimer++;
     }
     tri.keepOnTheMap();
-    for (let i = 0; i < targets.length; i++) { // check for triangle-circle collision
+    for (let i = 0; i < targets.length; i++) { // check for triangle-circle (player-target) collision
       targets[i].moveTowardsPlayer(tri);
       if (tri.collides(targets[i])) {
           if (ARMOR > 0) {
@@ -111,10 +114,19 @@ startBtn.addEventListener('click', function() {
       }
       if (targets[i].r < 1) {
         targets.splice(i, 1);
+      } else {
+        targets[i].draw();
       }
-      targets[i].draw();
     }
-    for (let i = 0; i < bullets.length; i++) { // check for circle-circle collision
+    for (let i = 0; i < upgrades.length; i++) { // check for triangle-circle (player-upgrade) collision
+      if (tri.collides(upgrades[i])) {
+        UPGRADE_COUNT++;
+        upgrades.splice(i, 1);
+      } else {
+        upgrades[i].draw();
+      }
+    }
+    for (let i = 0; i < bullets.length; i++) { // check for circle-circle (bullet-target) collision
       bullets[i].update();
       if (bullets[i].collides(targets)) {
         bullets.splice(i, 1);
@@ -128,6 +140,7 @@ startBtn.addEventListener('click', function() {
     tri.draw();
     drawTimeLeft();
     drawScore();
+    drawUpgradesCount();
     drawHealth();
     drawArmor();
   }, 1000/FPS);
@@ -165,7 +178,8 @@ let gameINIT = function() {
   HEALTH = 10000;
   ARMOR = 10000;
   SCORE = 0;
-  TIME_LEFT = 60
+  TIME_LEFT = 60;
+  UPGRADE_COUNT = 0;
   bullets = [];
   targets = [];
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -179,6 +193,15 @@ let drawScore = function() {
   ctx.lineWidth = 4;
   ctx.strokeText(`Score: ${SCORE}`, 10, 25);
   ctx.fillText(`Score: ${SCORE}`, 10, 25);
+}
+
+let drawUpgradesCount = function() {
+  ctx.font = '21px TheFont';
+  ctx.fillStyle = '#4fc197';
+  ctx.strokeStyle = '#888';
+  ctx.lineWidth = 4;
+  ctx.strokeText(`Upgrades: ${UPGRADE_COUNT}`, 10, 55);
+  ctx.fillText(`Upgrades: ${UPGRADE_COUNT}`, 10, 55);
 }
 
 let drawHealth = function() {
