@@ -13,8 +13,6 @@ function Bullet(originx, originy, offset) {
   this.damage = C_BULLET_DAMAGE;
   this.draw = function() {
     ctx.beginPath();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = '#999';
       ctx.fillStyle = '#ef5858';
       ctx.arc(this.x, this.y, R_BULLET, 0, 2 * Math.PI);
     ctx.fill();
@@ -38,16 +36,16 @@ function Bullet(originx, originy, offset) {
         a[i].color = '#d36363';
         a[i].health -= C_BULLET_DAMAGE;
         collision = 1;
-        setTimeout(function() {
-          if (a[i] !== undefined)
-            a[i].color = '#92bfce'
-        }, 50);
         if (a[i].health <= 0) {
-          let chance = Math.random();
-          if (chance <= C_DROP_CHANCE)
+          if (Math.random() <= C_DROP_CHANCE)
             upgrades.push(a[i].dropUpgrade());
           a.splice(i, 1);
           SCORE += 10;
+        } else {
+          setTimeout(function() {
+            if (a[i] !== undefined)
+              a[i].color = '#92bfce'
+          }, 50);
         }
       }
     }
