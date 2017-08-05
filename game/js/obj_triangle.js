@@ -1,4 +1,4 @@
-let SIZE = 12;          // triangle size
+let SIZE = 15;          // triangle size
 let DEC_RATE = 0.03;    // deceleration rate (default 0.03)
 // -----------------------------------------------------------------------------
 

@@ -60,10 +60,10 @@ let Game = {
     "max": 1
   },
   "target spawn interval": {
-    "default": 1000,
+    "default": 800,
     "factor": 50,
     "min": 500,
-    "max": 1000
+    "max": 800
   },
   "drop chance": {
     "default": 0.05, // default 0.05

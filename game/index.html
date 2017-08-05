@@ -8,10 +8,10 @@
   <body>
     <div class="canvasContainer">
       <div class="bgimage"></div>
-      <canvas id="canvas" width="600" height="600"></canvas>
+      <canvas id="canvas" width="1280" height="720"></canvas>
       <div id="blur"></div>
       <div id="gameOver">
-        <p id="endInfo">Shoot Targets and earn points</p>
+        <p id="endInfo">Shoot Targets and earn points<br>Use drop from targets to upgrade your stats</p>
         <p id="score">Controls: (W)(A)(S)(&#11014;)</p>
         <button id="startBtn" type="button" name="startBtn">Start</button>
       </div>
@@ -62,7 +62,7 @@
       </div>
       <div class="upgrade">
         <h3>Acceleration</h3>
-        <img src="">
+        <img src="img/accel.svg">
         <p id="c_acceleration">0.050</p>
         <button id="btnIncreaseAcceleration" class="ushB B1" type="button" name="button">Increase</button>
         <button id="btnDecreaseAcceleration" class="ushB B2" type="button" name="button">Decrease</button>
@@ -96,13 +96,6 @@
         <button id="btnDecreaseDropChance" class="ushB B2" type="button" name="button">Decrease</button>
       </div>
     </div>
-
-    <!-- <button id="stopBtn" type="button" name="stopBtn">Stop</button> -->
-    <!-- <p>Click on the map to play</p>
-    <p>Controls: W(Accelerate), A(Rotate Left), D(Rotate Right), ARROW_KEY_UP(Shoot)</p>
-    <p>You take damage if you touch any of the targets</p>
-    <p>Targets also have heatlh (12hp)</p>
-    <p>Every bullet makes damage (4dp). It takes 3 shots to destroy a target</p> -->
 
     <script type="text/javascript" src="js/game_info.js"></script>
     <script type="text/javascript" src="js/upgrade_shop.js"></script>

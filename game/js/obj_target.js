@@ -1,5 +1,5 @@
-const T_MIN_RAD = 12;   // target min radius
-const T_MAX_RAD = 22;   // target max radius
+const T_MIN_RAD = 15;   // target min radius
+const T_MAX_RAD = 25;   // target max radius
 const T_HEALTH = 12;    // target health
 const T_DIR_MULT = 0.5; // target direction multiplier (bigger -> faster targets)
 // -----------------------------------------------------------------------------
