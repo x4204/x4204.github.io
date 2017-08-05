@@ -4,13 +4,13 @@ const R_BULLET = 4;     // bullet radius
 function Bullet(originx, originy, offset) {
   this.offset = offset;
   this.velocity = [
-    Math.cos(this.offset + 0.5 * Math.PI) * Game['bullet speed'].current,
-    Math.sin(this.offset + 0.5 * Math.PI) * Game['bullet speed'].current
+    Math.cos(this.offset + 0.5 * Math.PI) * C_BULLET_SPEED,
+    Math.sin(this.offset + 0.5 * Math.PI) * C_BULLET_SPEED
   ];
   this.x = originx - Math.cos(this.offset + 0.5 * Math.PI) * SIZE * 2;
   this.y = originy - Math.sin(this.offset + 0.5 * Math.PI) * SIZE * 2;
   this.r = R_BULLET;
-  this.damage = Game['bullet damage'].current;
+  this.damage = C_BULLET_DAMAGE;
   this.draw = function() {
     ctx.beginPath();
       ctx.lineWidth = 1;
@@ -36,7 +36,7 @@ function Bullet(originx, originy, offset) {
       let diffr = Math.pow(this.r + a[i].r, 2);
       if(diffx + diffy <= diffr) {
         a[i].color = '#d36363';
-        a[i].health -= Game['bullet damage'].current;
+        a[i].health -= C_BULLET_DAMAGE;
         collision = 1;
         setTimeout(function() {
           if (a[i] !== undefined)
@@ -44,7 +44,7 @@ function Bullet(originx, originy, offset) {
         }, 50);
         if (a[i].health <= 0) {
           let chance = Math.random();
-          if (chance <= Game['drop chance'].current)
+          if (chance <= C_DROP_CHANCE)
             upgrades.push(a[i].dropUpgrade());
           a.splice(i, 1);
           SCORE += 10;

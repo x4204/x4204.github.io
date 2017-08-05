@@ -1,7 +1,6 @@
 let SIZE = 12;          // triangle size
 let ACC_RATE = 0.05;    // acceleration rate (default 0.05)
 let DEC_RATE = 0.03;    // deceleration rate (default 0.03)
-const MASS = 1;         // triangle mass (default 1)
 // -----------------------------------------------------------------------------
 
 function Triangle(originx, originy, angleoff) {
@@ -38,46 +37,46 @@ function Triangle(originx, originy, angleoff) {
     ctx.stroke();
   }
   this.moveForwards = function () {
-    this.accel[0] = (Math.sin(this.offset + Math.PI) * ACC_RATE) / MASS;
-    this.accel[1] = (Math.cos(this.offset + Math.PI) * ACC_RATE) / MASS;
-    if (this.velocity[0] > Game['max speed'].current)
-      this.velocity[0] = Game['max speed'].current - 0.01;
-    else if (this.velocity[0] < -Game['max speed'].current)
-      this.velocity[0] = -Game['max speed'].current + 0.01;
+    this.accel[0] = (Math.sin(this.offset + Math.PI) * ACC_RATE) / C_MASS;
+    this.accel[1] = (Math.cos(this.offset + Math.PI) * ACC_RATE) / C_MASS;
+    if (this.velocity[0] > C_MAX_SPEED)
+      this.velocity[0] = C_MAX_SPEED - 0.01;
+    else if (this.velocity[0] < -C_MAX_SPEED)
+      this.velocity[0] = -C_MAX_SPEED + 0.01;
     else this.velocity[0] += this.accel[0];
-    if (this.velocity[1] > Game['max speed'].current)
-      this.velocity[1] = Game['max speed'].current - 0.01;
-    else if (this.velocity[1] < -Game['max speed'].current)
-      this.velocity[1] = -Game['max speed'].current + 0.01;
+    if (this.velocity[1] > C_MAX_SPEED)
+      this.velocity[1] = C_MAX_SPEED - 0.01;
+    else if (this.velocity[1] < -C_MAX_SPEED)
+      this.velocity[1] = -C_MAX_SPEED + 0.01;
     else this.velocity[1] -= this.accel[1];
     this.x -= this.velocity[0];
     this.y -= this.velocity[1];
   }
   this.moveBackwards = function() {
-    this.accel[0] = (Math.sin(this.offset - Math.PI) * ACC_RATE) / MASS;
-    this.accel[1] = (Math.cos(this.offset - Math.PI) * ACC_RATE) / MASS;
-    if (this.velocity[0] > Game['max speed'].current)
-      this.velocity[0] = Game['max speed'].current - 0.01;
-    else if (this.velocity[0] < -Game['max speed'].current)
-      this.velocity[0] = -Game['max speed'].current + 0.01;
+    this.accel[0] = (Math.sin(this.offset - Math.PI) * ACC_RATE) / C_MASS;
+    this.accel[1] = (Math.cos(this.offset - Math.PI) * ACC_RATE) / C_MASS;
+    if (this.velocity[0] > C_MAX_SPEED)
+      this.velocity[0] = C_MAX_SPEED - 0.01;
+    else if (this.velocity[0] < -C_MAX_SPEED)
+      this.velocity[0] = -C_MAX_SPEED + 0.01;
     else this.velocity[0] -= this.accel[0];
-    if (this.velocity[1] > Game['max speed'].current)
-      this.velocity[1] = Game['max speed'].current - 0.01;
-    else if (this.velocity[1] < -Game['max speed'].current)
-      this.velocity[1] = -Game['max speed'].current + 0.01;
+    if (this.velocity[1] > C_MAX_SPEED)
+      this.velocity[1] = C_MAX_SPEED - 0.01;
+    else if (this.velocity[1] < -C_MAX_SPEED)
+      this.velocity[1] = -C_MAX_SPEED + 0.01;
     else this.velocity[1] += this.accel[1];
     this.x -= this.velocity[0];
     this.y -= this.velocity[1];
   }
   this.rotateLeft = function() {
-    this.offset -= Game['rotation speed'].current;
+    this.offset -= C_ROT_SPEED;
   }
   this.rotateRight = function() {
-    this.offset += Game['rotation speed'].current;
+    this.offset += C_ROT_SPEED;
   }
   this.decelerate = function() {
-    this.velocity[0] -= this.velocity[0] * DEC_RATE / MASS;
-    this.velocity[1] -= this.velocity[1] * DEC_RATE / MASS;
+    this.velocity[0] -= this.velocity[0] * DEC_RATE / C_MASS;
+    this.velocity[1] -= this.velocity[1] * DEC_RATE / C_MASS;
     this.x -= this.velocity[0];
     this.y -= this.velocity[1];
     // console.log(`${this.velocity[0].toFixed(2)} and ${this.velocity[1].toFixed(2)}`);

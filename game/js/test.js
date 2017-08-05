@@ -5,6 +5,20 @@ let score = document.querySelector(`#score`);
 let canvas = document.querySelector(`#canvas`);
 let startBtn = document.querySelector(`#startBtn`);
 let ctx = canvas.getContext(`2d`);
+// game data -------------------------------------------------------------------
+let C_FPS = Game.FPS;
+let WIDTH;
+let HEIGHT;
+let C_ARMOR;
+let C_HEALTH;
+let C_TIME;
+let C_TSI;
+let C_MASS;
+let C_MAX_SPEED;
+let C_DROP_CHANCE;
+let C_BULLET_SPEED;
+let C_BULLET_DAMAGE;
+let C_ROT_SPEED;
 // general data ----------------------------------------------------------------
 let SCORE;                        // player score
 let currObj;                      // last clicked DOM element
@@ -13,7 +27,7 @@ let mainInterval;                 // game loop
 let mainTimer;                    // 60 seconds game timer
 let targetSpawn;                  // target spawn interval
 let shootTimer = 20;              // interval for shooting
-// game objects ----------------------------------------------------------------
+// game lists of objects -------------------------------------------------------
 let tri;                          // the player
 let bullets = [];                 // bullets shot
 let targets = [];                 // targets on the map
@@ -72,7 +86,7 @@ startBtn.addEventListener('click', function() {
   gameINIT();
 
   mainInterval = setInterval(function() {
-    ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
     if (Game.keys.w == true) tri.moveForwards();
     else if (Game.keys.s == true) tri.moveBackwards();
     else if (Math.abs(tri.velocity[0]) > DEC_RATE
@@ -89,13 +103,13 @@ startBtn.addEventListener('click', function() {
     for (let i = 0; i < targets.length; i++) { // check for triangle-circle (player-target) collision
       targets[i].moveTowardsPlayer(tri);
       if (tri.collides(targets[i])) {
-          if (Game.armor.current > 0) {
-            Game.armor.current -= 180;
-            Game.health.current -= 20;
+          if (C_ARMOR > 0) {
+            C_ARMOR -= 180;
+            C_HEALTH -= 20;
           } else {
-            Game.health.current -= 180;
+            C_HEALTH -= 180;
           }
-          if (Game.health.current / 100 <= 0){
+          if (C_HEALTH / 100 <= 0){
             setTimeout(drawGameOver('Game'), 200);
             clearInterval(mainInterval);
             clearInterval(targetSpawn);
@@ -134,7 +148,7 @@ startBtn.addEventListener('click', function() {
     drawUpgradesCount();
     drawHealth();
     drawArmor();
-  }, 1000/Game.FPS);
+  }, 1000/C_FPS);
 
   targetSpawn = setInterval(function() {
     let newTarget = new Target();
@@ -144,22 +158,21 @@ startBtn.addEventListener('click', function() {
       distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
     }
     targets.push(newTarget);
-  }, Game['target spawn interval'].current);
+  }, C_TSI);
 
   mainTimer = setInterval(function() {
-      if (Game.time.current == 0) {               // time rush gamemode
+      if (C_TIME == 0) {               // time rush gamemode
         clearInterval(mainInterval);
         clearInterval(targetSpawn);
         clearInterval(mainTimer);
         drawGameOver(' Time');
         isStart = false;
       }
-      else Game.time.current--;
+      else C_TIME--;
     }, 1000);
 });
 
 let gameINIT = function() {
-  SCORE = 0;
   isStart = true;
   currObj = canvas;
   bullets = [];
@@ -170,18 +183,21 @@ let gameINIT = function() {
   blurDiv.style.visibility = 'hidden';
   endInfo.style.visibility = 'hidden';
   startBtn.style.visibility = 'hidden';
-  Game.time.current = Game.time.default;
-  Game.armor.current = Game.armor.default;
-  Game.health.current = Game.health.default;
-  Game['mass'].current = Game['mass'].default;
-  Game['max speed'].current = Game['max speed'].default;
-  Game['drop chance'].current = Game['drop chance'].default;
-  Game['bullet speed'].current = Game['bullet speed'].default;
-  Game['bullet damage'].current = Game['bullet damage'].default;
-  Game['rotation speed'].current = Game['rotation speed'].default;
-  Game['target spawn interval'].current = Game['target spawn interval'].default;
-  ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
-  tri = new Triangle(Game.canvas.width / 2, Game.canvas.height / 2, 0);
+  SCORE = 0;
+  WIDTH = Game.canvas.width;
+  HEIGHT = Game.canvas.height;
+  C_TIME = Game.time.default;
+  C_ARMOR = Game.armor.default;
+  C_HEALTH = Game.health.default;
+  C_TSI = Game['target spawn interval'].default;
+  C_MASS = Game['mass'].default;
+  C_MAX_SPEED = Game['max speed'].default;
+  C_DROP_CHANCE = Game['drop chance'].default;
+  C_BULLET_SPEED= Game['bullet speed'].default;
+  C_BULLET_DAMAGE = Game['bullet damage'].default;
+  C_ROT_SPEED = Game['rotation speed'].default;
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+  tri = new Triangle(WIDTH / 2, HEIGHT / 2, 0);
 }
 
 let drawScore = function() {
@@ -208,8 +224,8 @@ let drawHealth = function() {
   ctx.fillStyle = '#d8291c';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 2;
-  ctx.strokeText(`Health: ${Math.floor(Game.health.current / 100)}`, Game.canvas.width / 2 - 50, 25);
-  ctx.fillText(`Health: ${Math.floor(Game.health.current / 100)}`, Game.canvas.width / 2 - 50, 25);
+  ctx.strokeText(`Health: ${Math.floor(C_HEALTH / 100)}`, WIDTH / 2 - 50, 25);
+  ctx.fillText(`Health: ${Math.floor(C_HEALTH / 100)}`, WIDTH / 2 - 50, 25);
 }
 
 let drawArmor = function() {
@@ -217,8 +233,8 @@ let drawArmor = function() {
   ctx.fillStyle = '#2475c6';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 2;
-  ctx.strokeText(`Armor: ${Math.floor(Game.armor.current / 100)}`, Game.canvas.width - 120, 25);
-  ctx.fillText(`Armor: ${Math.floor(Game.armor.current / 100)}`, Game.canvas.width - 120, 25);
+  ctx.strokeText(`Armor: ${Math.floor(C_ARMOR / 100)}`, WIDTH - 120, 25);
+  ctx.fillText(`Armor: ${Math.floor(C_ARMOR / 100)}`, WIDTH - 120, 25);
 }
 
 let drawTimeLeft = function() {
@@ -226,12 +242,12 @@ let drawTimeLeft = function() {
   ctx.fillStyle = '#ffcc00';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 4;
-  ctx.strokeText(`You have ${Game.time.current} seconds to get a highscore`,
-                  Game.canvas.width / 2 - 195,
-                  Game.canvas.height - 15);
-  ctx.fillText(`You have ${Game.time.current} seconds to get a highscore`,
-                  Game.canvas.width / 2 - 195,
-                  Game.canvas.height - 15);
+  ctx.strokeText(`You have ${C_TIME} seconds to get a highscore`,
+                  WIDTH / 2 - 195,
+                  HEIGHT - 15);
+  ctx.fillText(`You have ${C_TIME} seconds to get a highscore`,
+                  WIDTH / 2 - 195,
+                  HEIGHT - 15);
 }
 
 let drawGameOver = function(text) {
