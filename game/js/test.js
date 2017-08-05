@@ -111,7 +111,7 @@ startBtn.addEventListener('click', function() {
     }
     for (let i = 0; i < upgrades.length; i++) { // check for triangle-circle (player-upgrade) collision
       if (tri.collides(upgrades[i])) {
-        Game.upgrades.current++;
+        Game.upgrades++;
         upgrades.splice(i, 1);
       } else {
         upgrades[i].draw();
@@ -165,17 +165,21 @@ let gameINIT = function() {
   bullets = [];
   targets = [];
   upgrades = [];
-  startBtn.style.visibility = 'hidden';
   gover.style.visibility = 'hidden';
+  score.style.visibility = 'hidden';
   blurDiv.style.visibility = 'hidden';
   endInfo.style.visibility = 'hidden';
-  score.style.visibility = 'hidden';
-  Game.health.current = Game.health.default;
-  Game.armor.current = Game.armor.default;
+  startBtn.style.visibility = 'hidden';
   Game.time.current = Game.time.default;
+  Game.armor.current = Game.armor.default;
+  Game.health.current = Game.health.default;
+  Game['mass'].current = Game['mass'].default;
+  Game['max speed'].current = Game['max speed'].default;
+  Game['drop chance'].current = Game['drop chance'].default;
   Game['bullet speed'].current = Game['bullet speed'].default;
   Game['bullet damage'].current = Game['bullet damage'].default;
-  Game['max speed'].current = Game['max speed'].default;
+  Game['rotation speed'].current = Game['rotation speed'].default;
+  Game['target spawn interval'].current = Game['target spawn interval'].default;
   ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
   tri = new Triangle(Game.canvas.width / 2, Game.canvas.height / 2, 0);
 }
@@ -190,13 +194,13 @@ let drawScore = function() {
 }
 
 let drawUpgradesCount = function() {
-  upgradeShopPoints.innerHTML = Game.upgrades.current;
+  upgradeShopPoints.innerHTML = Game.upgrades;
   ctx.font = '21px TheFont';
   ctx.fillStyle = '#4fc197';
   ctx.strokeStyle = '#888';
   ctx.lineWidth = 4;
-  ctx.strokeText(`Upgrades: ${Game.upgrades.current}`, 10, 55);
-  ctx.fillText(`Upgrades: ${Game.upgrades.current}`, 10, 55);
+  ctx.strokeText(`Upgrades: ${Game.upgrades}`, 10, 55);
+  ctx.fillText(`Upgrades: ${Game.upgrades}`, 10, 55);
 }
 
 let drawHealth = function() {

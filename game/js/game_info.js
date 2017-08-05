@@ -6,7 +6,10 @@ let Game = {
   },
   "time": {
     "default": 60,
-    "current": 60
+    "current": 60,
+    "factor": 5,
+    "min": 60,
+    "max": 120
   },
   "health": {
     "default": 10000,
@@ -45,19 +48,31 @@ let Game = {
   },
   "rotation speed": {
     "default": 0.04,
-    "current": 0.04
+    "current": 0.04,
+    "factor": 0.005,
+    "min": 0.04,
+    "max": 0.06
   },
   "mass": {
     "default": 1,
-    "current": 1
+    "current": 1,
+    "factor": 0.05,
+    "min": 0.6,
+    "max": 1
   },
   "target spawn interval": {
     "default": 1000,
-    "current": 1000
+    "current": 1000,
+    "factor": 50,
+    "min": 500,
+    "max": 1000
   },
   "drop chance": {
-    "default": 1, // (this is for testing) default 0.05
-    "current": 1
+    "default": 0.05, // (this is for testing) default 0.05
+    "current": 0.05,
+    "factor": 0.002,
+    "min": 0.05,
+    "max": 0.1
   },
   "keys": {
     w: false,
@@ -66,8 +81,5 @@ let Game = {
     d: false,
     shoot: false
   },
-  "upgrades": {
-    "default": 0,
-    "current": 0
-  }
+  "upgrades": 0
 }

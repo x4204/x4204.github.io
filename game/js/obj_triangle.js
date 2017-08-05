@@ -1,7 +1,6 @@
 let SIZE = 12;          // triangle size
 let ACC_RATE = 0.05;    // acceleration rate (default 0.05)
 let DEC_RATE = 0.03;    // deceleration rate (default 0.03)
-const R_SPEED = 0.04;   // rotation speed (default 0.04)
 const MASS = 1;         // triangle mass (default 1)
 // -----------------------------------------------------------------------------
 
@@ -51,7 +50,6 @@ function Triangle(originx, originy, angleoff) {
     else if (this.velocity[1] < -Game['max speed'].current)
       this.velocity[1] = -Game['max speed'].current + 0.01;
     else this.velocity[1] -= this.accel[1];
-    console.log(`${this.velocity[0].toFixed(2)} ${this.velocity[1].toFixed(2)}`)
     this.x -= this.velocity[0];
     this.y -= this.velocity[1];
   }
@@ -72,10 +70,10 @@ function Triangle(originx, originy, angleoff) {
     this.y -= this.velocity[1];
   }
   this.rotateLeft = function() {
-    this.offset -= R_SPEED;
+    this.offset -= Game['rotation speed'].current;
   }
   this.rotateRight = function() {
-    this.offset += R_SPEED;
+    this.offset += Game['rotation speed'].current;
   }
   this.decelerate = function() {
     this.velocity[0] -= this.velocity[0] * DEC_RATE / MASS;
