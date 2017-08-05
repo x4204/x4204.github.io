@@ -151,7 +151,7 @@ let shopCurrRotationSpeed = document.querySelector('#c_rotation_speed');
 
 btnIncreaseRotationSpeed.addEventListener('mousedown', function() {
   if (Game['rotation speed'].default.toFixed(3) >= Game['rotation speed'].max)
-    alert('You have reached rotation speed limit');
+    alert('You have reached max rotation speed limit');
   else if (Game.upgrades == 0)
     alert('You have no upgrade points left');
   else {
@@ -168,6 +168,35 @@ btnDecreaseRotationSpeed.addEventListener('mousedown', function() {
   else {
     Game['rotation speed'].default -= Game['rotation speed'].factor;
     shopCurrRotationSpeed.innerHTML = Game['rotation speed'].default.toFixed(3);
+    Game.upgrades++;
+    upgradeShopPoints.innerHTML = Game.upgrades;
+  }
+});
+
+// acceleration ----------------------------------------------------------------
+let btnIncreaseAcceleration = document.querySelector('#btnIncreaseAcceleration');
+let btnDecreaseAcceleration = document.querySelector('#btnDecreaseAcceleration');
+let shopCurrAcceleration = document.querySelector('#c_acceleration');
+
+btnIncreaseAcceleration.addEventListener('mousedown', function() {
+  if (Game['acceleration'].default.toFixed(3) >= Game['acceleration'].max)
+    alert('You have reached max acceleration limit');
+  else if (Game.upgrades == 0)
+    alert('You have no upgrade points left');
+  else {
+    Game['acceleration'].default += Game['acceleration'].factor;
+    shopCurrAcceleration.innerHTML = Game['acceleration'].default.toFixed(3);
+    Game.upgrades--;
+    upgradeShopPoints.innerHTML = Game.upgrades;
+  }
+});
+
+btnDecreaseAcceleration.addEventListener('mousedown', function() {
+  if (Game['acceleration'].default.toFixed(3) <= Game['acceleration'].min)
+    alert('You have reached min acceleration limit');
+  else {
+    Game['acceleration'].default -= Game['acceleration'].factor;
+    shopCurrAcceleration.innerHTML = Game['acceleration'].default.toFixed(3);
     Game.upgrades++;
     upgradeShopPoints.innerHTML = Game.upgrades;
   }

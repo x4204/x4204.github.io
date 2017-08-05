@@ -1,5 +1,4 @@
 let SIZE = 12;          // triangle size
-let ACC_RATE = 0.05;    // acceleration rate (default 0.05)
 let DEC_RATE = 0.03;    // deceleration rate (default 0.03)
 // -----------------------------------------------------------------------------
 
@@ -37,8 +36,8 @@ function Triangle(originx, originy, angleoff) {
     ctx.stroke();
   }
   this.moveForwards = function () {
-    this.accel[0] = (Math.sin(this.offset + Math.PI) * ACC_RATE) / C_MASS;
-    this.accel[1] = (Math.cos(this.offset + Math.PI) * ACC_RATE) / C_MASS;
+    this.accel[0] = (Math.sin(this.offset + Math.PI) * C_ACCEL) / C_MASS;
+    this.accel[1] = (Math.cos(this.offset + Math.PI) * C_ACCEL) / C_MASS;
     if (this.velocity[0] > C_MAX_SPEED)
       this.velocity[0] = C_MAX_SPEED - 0.01;
     else if (this.velocity[0] < -C_MAX_SPEED)
@@ -53,8 +52,8 @@ function Triangle(originx, originy, angleoff) {
     this.y -= this.velocity[1];
   }
   this.moveBackwards = function() {
-    this.accel[0] = (Math.sin(this.offset - Math.PI) * ACC_RATE) / C_MASS;
-    this.accel[1] = (Math.cos(this.offset - Math.PI) * ACC_RATE) / C_MASS;
+    this.accel[0] = (Math.sin(this.offset - Math.PI) * C_ACCEL) / C_MASS;
+    this.accel[1] = (Math.cos(this.offset - Math.PI) * C_ACCEL) / C_MASS;
     if (this.velocity[0] > C_MAX_SPEED)
       this.velocity[0] = C_MAX_SPEED - 0.01;
     else if (this.velocity[0] < -C_MAX_SPEED)

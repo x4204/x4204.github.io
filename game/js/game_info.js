@@ -47,6 +47,12 @@ let Game = {
     "min": 0.04,
     "max": 0.06
   },
+  "acceleration": {
+    "default": 0.05,
+    "factor": 0.005,
+    "min": 0.05,
+    "max": 0.1
+  },
   "mass": {
     "default": 1,
     "factor": 0.05,

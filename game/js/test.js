@@ -19,6 +19,7 @@ let C_DROP_CHANCE;
 let C_BULLET_SPEED;
 let C_BULLET_DAMAGE;
 let C_ROT_SPEED;
+let C_ACCEL;
 // general data ----------------------------------------------------------------
 let SCORE;                        // player score
 let currObj;                      // last clicked DOM element
@@ -196,6 +197,7 @@ let gameINIT = function() {
   C_BULLET_SPEED= Game['bullet speed'].default;
   C_BULLET_DAMAGE = Game['bullet damage'].default;
   C_ROT_SPEED = Game['rotation speed'].default;
+  C_ACCEL = Game.acceleration.default;
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   tri = new Triangle(WIDTH / 2, HEIGHT / 2, 0);
 }
