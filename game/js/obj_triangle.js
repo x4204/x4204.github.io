@@ -21,8 +21,8 @@ function Triangle(originx, originy, angleoff) {
       this.y + Math.sin(this.offset + Math.PI) * SIZE
     ];
     top = [     // the top point of the triangle
-      this.x - Math.cos(this.offset + 0.5 * Math.PI) * SIZE * 2,
-      this.y - Math.sin(this.offset + 0.5 * Math.PI) * SIZE * 2
+      this.x - Math.sin(this.offset + Math.PI) * SIZE * 2,
+      this.y + Math.cos(this.offset + Math.PI) * SIZE * 2
     ];
     ctx.beginPath();
       ctx.lineWidth = 2;
@@ -159,5 +159,12 @@ function Triangle(originx, originy, angleoff) {
       }
     }
     return false;
+  }
+  this.resetOptions = function() {
+    this.x = WIDTH / 2;
+    this.y = HEIGHT / 2;
+    this.offset = 0;
+    this.velocity = [ 0, 0 ];
+    this.accel = [0, 0];
   }
 }

@@ -29,7 +29,7 @@ let mainTimer;                    // 60 seconds game timer
 let targetSpawn;                  // target spawn interval
 let shootTimer = 20;              // interval for shooting
 // game lists of objects -------------------------------------------------------
-let tri;                          // the player
+let tri = new Triangle(WIDTH / 2, HEIGHT / 2, 0);// the player
 let bullets = [];                 // bullets shot
 let targets = [];                 // targets on the map
 let upgrades = [];                // upgrades on the map
@@ -110,7 +110,7 @@ startBtn.addEventListener('click', function() {
           } else {
             C_HEALTH -= 180;
           }
-          if (C_HEALTH / 100 <= 0){
+          if (C_HEALTH < 100){
             setTimeout(drawGameOver('Game'), 200);
             clearInterval(mainInterval);
             clearInterval(targetSpawn);
@@ -118,11 +118,7 @@ startBtn.addEventListener('click', function() {
             isStart = false;
           }
       }
-      if (targets[i].r < 1) {
-        targets.splice(i, 1);
-      } else {
-        targets[i].draw();
-      }
+      targets[i].draw();
     }
     for (let i = 0; i < upgrades.length; i++) { // check for triangle-circle (player-upgrade) collision
       if (tri.collides(upgrades[i])) {
@@ -152,13 +148,14 @@ startBtn.addEventListener('click', function() {
   }, 1000/C_FPS);
 
   targetSpawn = setInterval(function() {
-    let newTarget = new Target();
-    let distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
-    while (distanceToPlayer < 100) { // this ensures that targets will never spawn in a 100px radius to the player
-      newTarget = new Target();
-      distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
-    }
-    targets.push(newTarget);
+    do { // this ensures that targets will never spawn in a 100px radius to the player
+      let newTarget = new Target();
+      let distanceToPlayer = Math.sqrt(Math.pow(newTarget.x - tri.x, 2) + Math.pow(newTarget.y - tri.y, 2));
+      if (distanceToPlayer > 100) {
+        targets.push(newTarget);
+        break;
+      }
+    } while (true);
   }, C_TSI);
 
   mainTimer = setInterval(function() {
@@ -186,20 +183,20 @@ let gameINIT = function() {
   startBtn.style.visibility = 'hidden';
   SCORE = 0;
   WIDTH = Game.canvas.width;
-  HEIGHT = Game.canvas.height;
   C_TIME = Game.time.default;
+  HEIGHT = Game.canvas.height;
   C_ARMOR = Game.armor.default;
   C_HEALTH = Game.health.default;
-  C_TSI = Game['target spawn interval'].default;
+  C_ACCEL = Game.acceleration.default;
   C_MASS = Game['mass'].default;
   C_MAX_SPEED = Game['max speed'].default;
   C_DROP_CHANCE = Game['drop chance'].default;
   C_BULLET_SPEED= Game['bullet speed'].default;
-  C_BULLET_DAMAGE = Game['bullet damage'].default;
   C_ROT_SPEED = Game['rotation speed'].default;
-  C_ACCEL = Game.acceleration.default;
+  C_TSI = Game['target spawn interval'].default;
+  C_BULLET_DAMAGE = Game['bullet damage'].default;
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  tri = new Triangle(WIDTH / 2, HEIGHT / 2, 0);
+  tri.resetOptions();
 }
 
 let drawScore = function() {

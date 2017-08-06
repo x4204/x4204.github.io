@@ -4,11 +4,11 @@ const R_BULLET = 4;     // bullet radius
 function Bullet(originx, originy, offset) {
   this.offset = offset;
   this.velocity = [
-    Math.cos(this.offset + 0.5 * Math.PI) * C_BULLET_SPEED,
-    Math.sin(this.offset + 0.5 * Math.PI) * C_BULLET_SPEED
+    Math.sin(this.offset + Math.PI) * C_BULLET_SPEED,
+    Math.cos(this.offset + Math.PI) * C_BULLET_SPEED
   ];
-  this.x = originx - Math.cos(this.offset + 0.5 * Math.PI) * SIZE * 2;
-  this.y = originy - Math.sin(this.offset + 0.5 * Math.PI) * SIZE * 2;
+  this.x = originx - Math.sin(this.offset + Math.PI) * SIZE * 2;
+  this.y = originy + Math.cos(this.offset + Math.PI) * SIZE * 2;
   this.r = R_BULLET;
   this.damage = C_BULLET_DAMAGE;
   this.draw = function() {
@@ -19,7 +19,7 @@ function Bullet(originx, originy, offset) {
   }
   this.update = function() {
     this.x -= this.velocity[0];
-    this.y -= this.velocity[1];
+    this.y += this.velocity[1];
   }
   this.isOutOfBoundries = function() {
     if (this.x < -10 || this.x > Game.canvas.width + 10
@@ -40,7 +40,7 @@ function Bullet(originx, originy, offset) {
           if (Math.random() <= C_DROP_CHANCE)
             upgrades.push(a[i].dropUpgrade());
           a.splice(i, 1);
-          SCORE += 10;
+          SCORE += Math.floor(a[i].r * 0.5);
         } else {
           setTimeout(function() {
             if (a[i] !== undefined)
