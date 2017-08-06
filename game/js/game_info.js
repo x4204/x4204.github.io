@@ -1,6 +1,6 @@
 let Game = {
   "FPS": 60,
-  "upgrades": 100,
+  "upgrades": 0,
   "canvas": {
     "width": canvas.width,
     "height": canvas.height

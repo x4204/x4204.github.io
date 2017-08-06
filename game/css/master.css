@@ -10,7 +10,6 @@ body{
 }
 
 .canvasContainer{
-  border: 1px solid #b3b3b3;
   background-color: #eee;
   width: 1280px;
   height: 720px;
@@ -20,8 +19,8 @@ body{
 #blur{
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
-  width: 1282px; /*+2 px*/
-  height: 722px;
+  width: 1280px;
+  height: 720px;
   top: 0px;
   left: 0px;
 }
@@ -32,6 +31,7 @@ body{
   height: 720px;
   position: absolute;
   top: 0;
+  left: 0;
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('../img/grid1.png');
@@ -39,6 +39,7 @@ body{
 
 #canvas{
     position: absolute;
+    top: 0;
     left: 0;
 }
 
@@ -46,7 +47,7 @@ body{
   font-family: TheFont;
   position: absolute;
   height: auto;
-  background-color: #ccc;
+  background-color: rgba(96, 100, 127, 0.9);
   text-align: center;
   width: 1280px;
 }
@@ -58,7 +59,7 @@ body{
   width: 260px;
   height: auto;
   display: inline-block;
-  background-color: #aaa;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .upgradeShop div h3{
@@ -99,6 +100,7 @@ body{
   background-color: rgba(96, 100, 127, 0.9);
   position: absolute;
   top: 0;
+  left: 0;
   width: inherit;
   height: auto;
   transform: translate(0%, 45%);
