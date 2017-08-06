@@ -44,7 +44,7 @@ body{
 
 .upgradeShop{
   font-family: TheFont;
-  position: relative;
+  position: absolute;
   height: auto;
   background-color: #ccc;
   text-align: center;
