@@ -40,6 +40,7 @@ function Bullet(originx, originy, offset) {
           if (Math.random() <= C_DROP_CHANCE)
             upgrades.push(a[i].dropUpgrade());
           a.splice(i, 1);
+          POP_SOUND.play();
           SCORE += Math.floor(a[i].r * 0.5);
         } else {
           setTimeout(function() {

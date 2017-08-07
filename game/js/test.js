@@ -20,6 +20,9 @@ let C_BULLET_SPEED;
 let C_BULLET_DAMAGE;
 let C_ROT_SPEED;
 let C_ACCEL;
+let POP_SOUND = new Howl({ src: ['audio/pop.mp3'], rate: 3, volume: 0.5 });
+let BULLET_SOUND = new Howl({ src: ['audio/pong.mp3'], rate: 1.5, volume: 1 });
+let THEME_SONG = new Howl({ src: ['audio/Skyrim_Theme_8Bit.mp3'], rate: 1, volume: 0.3, loop: true });
 // general data ----------------------------------------------------------------
 let SCORE;                        // player score
 let currObj;                      // last clicked DOM element
@@ -96,8 +99,10 @@ startBtn.addEventListener('click', function() {
     if (Game.keys.a == true) tri.rotateLeft();
     if (Game.keys.d == true) tri.rotateRight();
     if (Game.keys.shoot == true) {
-      if (shootTimer % 20 == 0)
+      if (shootTimer % 20 == 0) {
         bullets.push(new Bullet(tri.x, tri.y, tri.offset));
+        BULLET_SOUND.play();
+      }
       shootTimer++;
     }
     tri.keepOnTheMap();
@@ -115,6 +120,8 @@ startBtn.addEventListener('click', function() {
             clearInterval(mainInterval);
             clearInterval(targetSpawn);
             clearInterval(mainTimer);
+            THEME_SONG.fade(1, 0, 2000);
+            setTimeout(function() {THEME_SONG.pause();}, 2000);
             isStart = false;
           }
       }
@@ -165,12 +172,16 @@ startBtn.addEventListener('click', function() {
         clearInterval(mainTimer);
         drawGameOver(' Time');
         isStart = false;
+        THEME_SONG.fade(1, 0, 2000);
+        setTimeout(function() {THEME_SONG.pause();}, 2000);
       }
       else C_TIME--;
     }, 1000);
 });
 
 let gameINIT = function() {
+  THEME_SONG.play();
+  THEME_SONG.fade(0, 1, 2000);
   isStart = true;
   currObj = canvas;
   bullets = [];
