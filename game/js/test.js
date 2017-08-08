@@ -112,10 +112,12 @@ startBtn.addEventListener('click', function() {
           if (C_ARMOR > 0) {
             C_ARMOR -= 180;
             C_HEALTH -= 20;
+            if (C_ARMOR <= 0) C_ARMOR = 0;
           } else {
             C_HEALTH -= 180;
           }
           if (C_HEALTH < 100){
+            C_HEALTH = 0;
             setTimeout(drawGameOver('Game'), 200);
             clearInterval(mainInterval);
             clearInterval(targetSpawn);
@@ -127,14 +129,6 @@ startBtn.addEventListener('click', function() {
       }
       targets[i].draw();
     }
-    for (let i = 0; i < upgrades.length; i++) { // check for triangle-circle (player-upgrade) collision
-      if (tri.collides(upgrades[i])) {
-        Game.upgrades++;
-        upgrades.splice(i, 1);
-      } else {
-        upgrades[i].draw();
-      }
-    }
     for (let i = 0; i < bullets.length; i++) { // check for circle-circle (bullet-target) collision
       bullets[i].update();
       if (bullets[i].collides(targets)) {
@@ -145,6 +139,14 @@ startBtn.addEventListener('click', function() {
       if (bullets[i].isOutOfBoundries())
         bullets.splice(i, 1);
       else bullets[i].draw();
+    }
+    for (let i = 0; i < upgrades.length; i++) { // check for triangle-circle (player-upgrade) collision
+      if (tri.collides(upgrades[i])) {
+        Game.upgrades++;
+        upgrades.splice(i, 1);
+      } else {
+        upgrades[i].draw();
+      }
     }
     tri.draw();
     drawTimeLeft();
@@ -230,21 +232,41 @@ let drawUpgradesCount = function() {
 }
 
 let drawHealth = function() {
+  ctx.beginPath();                                // status background
+    ctx.rect(WIDTH - 292, 5, 286, 65);
+    ctx.fillStyle = '#aaa';
+    ctx.fill();
+    ctx.closePath();
+  ctx.beginPath();                                // the status itself
+    ctx.fillStyle = '#d8291c';
+    ctx.strokeStyle = '#666';
+    ctx.rect(WIDTH - 212, 43, (C_HEALTH / Game.health.max) * 200, 22);
+    ctx.fill();
+    ctx.closePath();
+  ctx.beginPath();                                // the status border
+    ctx.rect(WIDTH - 212, 43, 200, 22);
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.closePath();
   ctx.font = '21px TheFont';
   ctx.fillStyle = '#d8291c';
-  ctx.strokeStyle = '#888';
-  ctx.lineWidth = 2;
-  ctx.strokeText(`Health: ${Math.floor(C_HEALTH / 100)}`, WIDTH / 2 - 50, 25);
-  ctx.fillText(`Health: ${Math.floor(C_HEALTH / 100)}`, WIDTH / 2 - 50, 25);
+  ctx.fillText(`Health`, WIDTH - 285, 63);
 }
 
 let drawArmor = function() {
+  ctx.beginPath();                        // the status itself
+    ctx.fillStyle = '#2475c6';
+    ctx.rect(WIDTH - 212, 10, (C_ARMOR / Game.armor.max) * 200, 22);
+    ctx.fill();
+    ctx.closePath();
+  ctx.beginPath();                        // the status border
+    ctx.rect(WIDTH - 212, 10, 200, 22);
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.closePath();
   ctx.font = '21px TheFont';
   ctx.fillStyle = '#2475c6';
-  ctx.strokeStyle = '#888';
-  ctx.lineWidth = 2;
-  ctx.strokeText(`Armor: ${Math.floor(C_ARMOR / 100)}`, WIDTH - 120, 25);
-  ctx.fillText(`Armor: ${Math.floor(C_ARMOR / 100)}`, WIDTH - 120, 25);
+  ctx.fillText(`Armor`, WIDTH - 282, 28);
 }
 
 let drawTimeLeft = function() {

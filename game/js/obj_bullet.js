@@ -33,23 +33,25 @@ function Bullet(originx, originy, offset) {
       let diffy = Math.pow(this.y - a[i].y, 2);
       let diffr = Math.pow(this.r + a[i].r, 2);
       if(diffx + diffy <= diffr) {
-        a[i].color = '#d36363';
+        changeColor(a[i]);
         a[i].health -= C_BULLET_DAMAGE;
         collision = 1;
         if (a[i].health <= 0) {
           if (Math.random() <= C_DROP_CHANCE)
             upgrades.push(a[i].dropUpgrade());
-          a.splice(i, 1);
           POP_SOUND.play();
           SCORE += Math.floor(a[i].r * 0.5);
-        } else {
-          setTimeout(function() {
-            if (a[i] !== undefined)
-              a[i].color = '#92bfce'
-          }, 50);
+          a.splice(i, 1);
         }
       }
     }
     return collision;
   }
+}
+
+let changeColor = function(tar) {
+  tar.color = '#d36363';
+  setTimeout(function() {
+      tar.color = '#92bfce';
+  }, 50);
 }
