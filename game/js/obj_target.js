@@ -16,8 +16,9 @@ function Target() {
       ctx.strokeStyle = '#888';
       ctx.fillStyle = this.color;
       ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.fill();
+      ctx.stroke();
+      ctx.fill();
+      ctx.closePath();
     // this.r -= 0.03;
   }
   this.moveTowardsPlayer = function(player) {
@@ -33,5 +34,27 @@ function Target() {
   }
   this.dropUpgrade = function() {
     return new Upgrade(this.x, this.y);
+  }
+}
+
+function DeadTarget(originx, origiy, radius) {
+  this.x = originx;
+  this.y = origiy;
+  this.r = radius;
+  this.circum = 2 * Math.PI;
+  this.draw = function() {
+    ctx.beginPath();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = '#888';
+      ctx.arc(this.x, this.y, this.r, 0, this.circum);
+      ctx.stroke();
+      ctx.closePath();
+    ctx.beginPath();
+      ctx.fillStyle = '#d36363';
+      ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+    this.circum -= 0.2;
+    this.r *= 0.93;
   }
 }

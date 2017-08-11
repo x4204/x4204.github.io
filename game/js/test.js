@@ -20,9 +20,9 @@ let C_BULLET_SPEED;
 let C_BULLET_DAMAGE;
 let C_ROT_SPEED;
 let C_ACCEL;
-let POP_SOUND = new Howl({ src: ['audio/pop.mp3'], rate: 3, volume: 0.5 });
-let BULLET_SOUND = new Howl({ src: ['audio/pong.mp3'], rate: 1.5, volume: 1 });
-let THEME_SONG = new Howl({ src: ['audio/Skyrim_Theme_8Bit.mp3'], rate: 1, volume: 0.3, loop: true });
+let POP_SOUND = new Howl({ src: ['audio/pop.mp3'], rate: 3, volume: 0.2 });
+let BULLET_SOUND = new Howl({ src: ['audio/pong.mp3'], rate: 1.5, volume: 0.2 });
+let THEME_SONG = new Howl({ src: ['audio/background.mp3'], rate: 1, volume: 0.2, loop: true });
 // general data ----------------------------------------------------------------
 let SCORE;                        // player score
 let currObj;                      // last clicked DOM element
@@ -35,6 +35,7 @@ let shootTimer = 20;              // interval for shooting
 let tri = new Triangle(WIDTH / 2, HEIGHT / 2, 0);// the player
 let bullets = [];                 // bullets shot
 let targets = [];                 // targets on the map
+let deadTargets = [];             // dead targets on the map
 let upgrades = [];                // upgrades on the map
 // -----------------------------------------------------------------------------
 document.addEventListener('mousedown', function(event) {
@@ -122,7 +123,7 @@ startBtn.addEventListener('click', function() {
             clearInterval(mainInterval);
             clearInterval(targetSpawn);
             clearInterval(mainTimer);
-            THEME_SONG.fade(1, 0, 2000);
+            THEME_SONG.fade(0.3, 0, 2000);
             setTimeout(function() {THEME_SONG.pause();}, 2000);
             isStart = false;
           }
@@ -146,6 +147,13 @@ startBtn.addEventListener('click', function() {
         upgrades.splice(i, 1);
       } else {
         upgrades[i].draw();
+      }
+    }
+    for (let i = 0; i < deadTargets.length; i++) {
+      if (deadTargets[i].circum <= 0) {
+        deadTargets.splice(i, 1);
+      } else {
+        deadTargets[i].draw();
       }
     }
     tri.draw();
@@ -174,7 +182,7 @@ startBtn.addEventListener('click', function() {
         clearInterval(mainTimer);
         drawGameOver(' Time');
         isStart = false;
-        THEME_SONG.fade(1, 0, 2000);
+        THEME_SONG.fade(0.3, 0, 2000);
         setTimeout(function() {THEME_SONG.pause();}, 2000);
       }
       else C_TIME--;
@@ -183,7 +191,7 @@ startBtn.addEventListener('click', function() {
 
 let gameINIT = function() {
   THEME_SONG.play();
-  THEME_SONG.fade(0, 1, 2000);
+  THEME_SONG.fade(0, 0.3, 2000);
   isStart = true;
   currObj = canvas;
   bullets = [];

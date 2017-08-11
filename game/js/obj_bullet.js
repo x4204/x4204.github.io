@@ -37,6 +37,7 @@ function Bullet(originx, originy, offset) {
         a[i].health -= C_BULLET_DAMAGE;
         collision = 1;
         if (a[i].health <= 0) {
+          deadTargets.push(new DeadTarget(a[i].x, a[i].y, a[i].r));
           if (Math.random() <= C_DROP_CHANCE)
             upgrades.push(a[i].dropUpgrade());
           POP_SOUND.play();
