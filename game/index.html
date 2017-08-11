@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/master.css">
   </head>
   <body>
+
     <div class="canvasContainer">
       <div class="bgimage"></div>
       <canvas id="canvas" width="1280" height="720"></canvas>
@@ -13,6 +14,9 @@
       <div id="gameOver">
         <p id="endInfo">Shoot Targets and earn points<br>Use drop from targets to upgrade your stats</p>
         <p id="score"><br>Controls: (W)(A)(S)(&#11014;)</p>
+        <p id="yourNickname">Your nickname:</p>
+        <input type="text" id="saveInput">
+        <button id="saveHighBtn" type="button">Save highscore</button>
         <button id="startBtn" type="button" name="startBtn">Start</button>
       </div>
     </div>
@@ -96,7 +100,12 @@
         <button id="btnDecreaseDropChance" class="ushB B2" type="button" name="button">Decrease</button>
       </div>
     </div>
+    <div class="highscores">
+      <h3>Highscores</h3>
+      <table id="highscores" cellspacing="0"></table>
+    </div>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/papaparse.js"></script>
     <script type="text/javascript" src="js/howler.js"></script>
     <script type="text/javascript" src="js/game_info.js"></script>
