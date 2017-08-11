@@ -86,5 +86,5 @@ request.onreadystatechange = function() {
     Papa.parse(request.response, config);
   }
 };
-request.open("GET", '/data/hs.csv', true);
+request.open("GET", '../data/hs.csv', true);
 request.send();
