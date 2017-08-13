@@ -200,15 +200,11 @@ let gameINIT = function() {
   bullets = [];
   targets = [];
   upgrades = [];
-  saveInput.value = '';
   gover.style.visibility = 'hidden';
   score.style.visibility = 'hidden';
   blurDiv.style.visibility = 'hidden';
   endInfo.style.visibility = 'hidden';
   startBtn.style.visibility = 'hidden';
-  saveInput.style.display = 'none';
-  saveHighBtn.style.display = 'none';
-  yourNickname.style.display = 'none';
   SCORE = 0;
   WIDTH = Game.canvas.width;
   C_TIME = Game.time.default;
@@ -249,7 +245,7 @@ let drawUpgradesCount = function() {
 let drawHealth = function() {
   ctx.beginPath();                                // status background
     ctx.rect(WIDTH - 292, 5, 286, 65);
-    ctx.fillStyle = '#aaa';
+    ctx.fillStyle = 'rgba(170, 170, 170, 0.8)';
     ctx.fill();
     ctx.closePath();
   ctx.beginPath();                                // the status itself
@@ -301,9 +297,6 @@ let drawGameOver = function(text) {
   blurDiv.style.backgroundColor = 'rgba(0, 0, 0, 0)';
   gover.style.visibility = 'visible';
   blurDiv.style.visibility = 'visible';
-  saveInput.style.display = 'inline';
-  saveHighBtn.style.display = 'inline';
-  yourNickname.style.display = 'inline';
   endInfo.style.opacity = '0';
   score.style.opacity = '0';
   endInfo.innerHTML = `${text} Over`;
