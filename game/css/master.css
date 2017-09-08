@@ -3,56 +3,47 @@
     src: url('../fonts/the_font.ttf');
 }
 
-body{
+body {
   margin: 0;
   padding: 0;
-  background-color: #d3d3d3;
+  background-color: rgb(96, 100, 127);
 }
 
-.canvasContainer{
+.canvasContainer {
   background-color: #eee;
   width: 1280px;
   height: 720px;
   text-align: center;
+  margin: 0 auto;
 }
 
-#blur{
+#blur {
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
   width: 1280px;
   height: 720px;
-  top: 0px;
-  left: 0px;
+  transform: translate(0, -1444px);
 }
 
-.bgimage{
+.bgimage {
   opacity: 0.3;
   width: 1280px;
   height: 720px;
-  position: absolute;
-  top: 0;
-  left: 0;
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('../img/grid1.png');
 }
 
-#canvas{
-    position: absolute;
-    top: 0;
-    left: 0;
+#canvasDiv {
+  transform: translate(0, -720px);
 }
 
 .upgradeShop{
   font-family: TheFont;
-  /*position: absolute;*/
-  height: auto;
   background-color: rgba(96, 100, 127, 0.9);
   text-align: center;
-  width: 1280px;
 }
 
-.upgradeShop div{
+.upgradeShop div {
   text-align: left;
   padding: 12px;
   margin: 5px 5px;
@@ -62,28 +53,28 @@ body{
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.upgradeShop div h3{
+.upgradeShop div h3 {
   float: left;
 }
 
-.upgradeShop h3{
+.upgradeShop h3 {
   margin-top: 0px;
   padding-top: 20px;
 }
 
-.upgradeShop div p{
+.upgradeShop div p {
   padding: 7px 0;
   margin: 0;
   clear: both;
   float: left;
 }
 
-.upgradeShop div img{
+.upgradeShop div img {
   width: 50px;
   float: right;
 }
 
-.ushB{
+.ushB {
   font-family: TheFont;
   color: white;
   display: inline;
@@ -93,25 +84,20 @@ body{
   margin: 0 5px;
 }
 
-.B1{
+.B1 {
   background-color: #347235;
 }
 
-.B2{
+.B2 {
   background-color: #C11B17;
 }
 
-#gameOver{
+#gameOver {
   background-color: rgba(96, 100, 127, 0.9);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: inherit;
-  height: auto;
-  transform: translate(0%, 45%);
+  transform: translate(0, -2050px);
 }
 
-#gameOver p{
+#gameOver p {
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #555;
   font-family: TheFont;
@@ -119,7 +105,7 @@ body{
   font-size: 42px;
 }
 
-#startBtn{
+#startBtn {
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #555;
   background-color: rgba(0, 0, 0, 0);
@@ -130,31 +116,18 @@ body{
   color: #ffcc00;
   font-size: 41px;
   font-family: TheFont;
-  margin-top: 0px;
-  margin-bottom: 30px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 30px auto;
 }
 
-#startBtn:focus{
+#startBtn:focus {
   outline: 0;
 }
 
-#score{
-  margin-bottom: 10px;
-  margin-top: -40px;
+#endInfo {
+  margin-top: 0px;
+  padding-top: 30px;
 }
 
-.highscores{
-  width: 1280px;
-  background-color: rgba(96, 100, 127, 0.9);
-}
+#score {
 
-.highscores h3{
-  margin-top: 0;
-  padding-top: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-family: TheFont;
 }

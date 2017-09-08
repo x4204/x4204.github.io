@@ -6,14 +6,15 @@
     <link rel="stylesheet" href="css/master.css">
   </head>
   <body>
-
     <div class="canvasContainer">
       <div class="bgimage"></div>
-      <canvas id="canvas" width="1280" height="720"></canvas>
+      <div id="canvasDiv">
+        <canvas id="canvas" width="1280" height="720"></canvas>
+      </div>
       <div id="blur"></div>
       <div id="gameOver">
         <p id="endInfo">Shoot Targets and earn points<br>Use drop from targets to upgrade your stats</p>
-        <p id="score"><br>Controls: (W)(A)(S)(&#11014;)</p>
+        <p id="score">Controls: (W)(A)(S)(D)(&#11014;)</p>
         <button id="startBtn" type="button" name="startBtn">Start</button>
       </div>
     </div>
@@ -56,14 +57,14 @@
       </div>
       <div class="upgrade">
         <h3>Rotation Speed</h3>
-        <img src="img/rotation.ico">
+        <img src="img/rotation.png">
         <p id="c_rotation_speed">0.040</p>
         <button id="btnIncreaseRotationSpeed" class="ushB B1" type="button" name="button">Increase</button>
         <button id="btnDecreaseRotationSpeed" class="ushB B2" type="button" name="button">Decrease</button>
       </div>
       <div class="upgrade">
         <h3>Acceleration</h3>
-        <img src="img/accel.svg">
+        <img src="img/accel.png">
         <p id="c_acceleration">0.050</p>
         <button id="btnIncreaseAcceleration" class="ushB B1" type="button" name="button">Increase</button>
         <button id="btnDecreaseAcceleration" class="ushB B2" type="button" name="button">Decrease</button>
