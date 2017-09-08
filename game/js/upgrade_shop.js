@@ -18,6 +18,8 @@ let increaseStat = function(stat, shopCurrStat, isInversed, fixed, scale) {
 let decreaseStat = function(stat, shopCurrStat, isInversed, fixed, scale) {
     if (Game[stat].default.toFixed(fixed) <= Game[stat].min)
       alert(`You have reached min ${stat} limit`);
+    else if (Game.upgrades == 0)
+      alert(`You have no upgrade point left`);
     else {
       Game[stat].default -= Game[stat].factor;
       shopCurrStat.innerHTML = (Game[stat].default / scale).toFixed(fixed);
