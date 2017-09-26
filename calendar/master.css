@@ -1,0 +1,167 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #555;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	margin-left: 22px;
+}
+
+ul li {
+	font-size: 15px;
+	line-height: 1.6em;
+	display: inline-block;
+	text-align: center;
+	width: 46px;
+	height: 24px;
+	padding: 5px 0px;
+	cursor: pointer;
+	margin-left: -5px;
+	margin-top: -1px;
+}
+
+ul#dayList li:hover:not(.inactive):not(.today):not(.event) {
+	background-color: #555;
+	color: #fff;
+	border-radius: 5px;
+}
+
+.mDiv {
+	width: 360px;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 20px;
+	background-color: #eee;
+}
+
+.cHeader {
+	width: 100%;
+	height: 70px;
+	background-color: #eee;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .03),
+              0 1px 4px 0 rgba(0, 0, 0, .048),
+              0 3px 1px -2px rgba(0, 0, 0, .12);
+}
+
+.prevButton, .nextButton, .cHeaderText{
+	width: 20%;
+	height: 70px;
+	float: left;
+}
+
+.cHeaderText {
+	width: 60%;
+}
+
+.daysInMonth {
+	padding-top: 1px;
+	padding-bottom: 15px;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .03),
+              0 1px 4px 0 rgba(0, 0, 0, .048),
+              0 3px 1px -2px rgba(0, 0, 0, .12);
+}
+
+.inactive {
+	color: rgba(0, 0, 0, 0.2);
+	cursor: default;
+}
+
+#dateInfo {
+	padding: 0 22px;
+	/*height: 270px;*/
+	height: 0px;
+	overflow: hidden;
+}
+
+#dateInfo p {
+	margin-top: 15px;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+#dateInfo textarea {
+	background-color: rgba(204, 204, 204, 0.02);
+	padding: 10px 10px;
+	margin-bottom: 8px;
+	width: 294px;
+	height: 70px;
+	resize: none;
+	border-radius: 5px;
+}
+
+#dateInfo textarea:focus {
+	outline: 0;
+}
+
+.today {
+	background-color: #cc3737;
+	color: #fff;
+	border-radius: 5px;
+}
+
+.event {
+	background-color: #284890;
+	color: #fff;
+	border-radius: 5px;
+}
+
+.dayLabels {
+	background-color: #eee;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .03),
+              0 1px 4px 0 rgba(0, 0, 0, .048),
+              0 3px 1px -2px rgba(0, 0, 0, .12);
+}
+
+.dayLabels li {
+	cursor: default;
+}
+
+#setNoteBtn {
+	background-color: rgba(0, 0, 0, 0.1);
+	border: 1px solid #aaa;
+	padding: 7px;
+	width: 316px;
+	font-size: 16px;
+	border-radius: 5px;
+}
+
+#setNoteBtn:focus {
+	outline: 0;
+}
+
+#prevBtn, #nextBtn {
+	margin-top: 15px;
+  margin-left: 15px;
+  font-size: 19px;
+  padding: 10px 10px;
+	width: 40px;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+	background-color: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  line-height: 0.8em;
+  font-size: 25px;
+}
+
+#prevBtn:focus, #nextBtn:focus {
+	outline: 0;
+}
+
+#cHeaderText {
+	margin-top: 23px;
+	font-size: 23px;
+	margin-left: 0px;
+	text-align: center;
+}
