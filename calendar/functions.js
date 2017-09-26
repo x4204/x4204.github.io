@@ -44,7 +44,7 @@ let populateCalendar = function(list, theDate) {
 				closeDescription();
 			} else {
 				globalId = active[i].id;
-				openDescription();
+				closeDescription();
 				setTimeout(function() {
 					openDescription();
 				}, 400);
