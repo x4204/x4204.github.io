@@ -32,24 +32,36 @@ let populateCalendar = function(list, theDate) {
 		startDate.setDate(startDate.getDate() + 1);
 	}
 	list.innerHTML = str;
-
 	let active = document.querySelectorAll(`.active`);
+	addEventListeners(active);
+}
+
+let addEventListeners = function(active) {
 	for(let i = 0; i < active.length; i++) {
 		active[i].addEventListener(`click`, function() {
-			descriptionTitle.innerHTML = active[i].id.split(`_`).join(` `).toUpperCase();
 			if (globalId == undefined) {
 				globalId = active[i].id;
 				openDescription();
-			} else if (active[i].id == globalId && descriptionIsOpen) {
-				closeDescription();
+			} else if (active[i].id == globalId) {
+				if (descriptionIsOpen) {
+					closeDescription();
+				} else {
+					openDescription();
+				}
 			} else {
 				globalId = active[i].id;
-				closeDescription();
-				setTimeout(function() {
+				if (descriptionIsOpen) {
+					closeDescription();
+					setTimeout(function() {
+						descriptionTitle.innerHTML = active[i].id.split(`_`).join(` `).toUpperCase();
+						openDescription();
+					}, 400);
+				} else {
+					descriptionTitle.innerHTML = active[i].id.split(`_`).join(` `).toUpperCase();
 					openDescription();
-				}, 400);
+				}
 			}
-			console.log(active[i].id);
+			// console.log(active[i].id);
 		});
 	}
 }
